@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser')
 const config = require('../config/config')
 const adminAuth = require('../middleware/adminAuth')
 const nocache = require('nocache')
+const upload = require('../util/multer')
+ 
 route.use(express.json())
 route.use(express.urlencoded({extended:true}))
 
@@ -43,7 +45,7 @@ route.get('/logout',adminAuth.logout)
 
 route.post('/',adminController.verifyLogin)
 
-route.post('/addProduct',adminController.addProduct,adminController.loadAddProduct)
+route.post('/addProducts',adminController.upload,adminController.addProduct,adminController.loadAddProduct)
 
 
 

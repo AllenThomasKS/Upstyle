@@ -144,7 +144,7 @@
                       <small class="text-muted float-end">Default label</small>
                     </div>
                     <div class="card-body">
-                      <form action="/admin/addProduct" method="post" >
+                      <form action="/admin/addProducts" method="post" enctype="multipart/form-data"  >
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-fullname">Product Name</label>
                           <input type="text" class="form-control" name="product" id="basic-default-fullname" placeholder="product name" />
@@ -170,7 +170,7 @@
                         <div class="mb-3">
                           <label class="form-label"  for="basic-default-phone">Image</label>
                           <input
-                            type="file" name="image"
+                            type="file" name="images"
                             id="basic-default-phone"
                             class="form-control phone-mask"
                             placeholder="658 799 8941"

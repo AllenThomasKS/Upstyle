@@ -1,6 +1,35 @@
 const userModel = require('../model/userModel')
 const bcrypt = require('bcrypt')
 const productModel = require('../model/productModel')
+// const upload = require('../util/multer')
+
+
+
+
+
+
+
+const multer = require('multer')
+const path = require('path')
+
+
+const Storage = multer.diskStorage({
+    destination:function (req,file,cb){
+        cb(null,'./public/productImages')
+    },
+    filename: (req,file,cb)=>{
+        cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname))
+    }
+})
+
+
+const upload = multer({
+    storage: Storage 
+}).single('images')
+
+
+
+
 
 
 
@@ -36,8 +65,8 @@ const addProduct = async(req,res,next)=>{
             category : req.body.category,
             price : req.body.price,
             description : req.body.description,
-            isAvailable : true
-            // image : req.file.image
+            isAvailable : true,
+            image : req.file.filename
         })
         await product.save().then(()=>{
             console.log('product saved');
@@ -96,5 +125,6 @@ module.exports = {
     loadUsers,
     loadLogin,
     verifyLogin,
-    addProduct
+    addProduct,
+    upload
 }
