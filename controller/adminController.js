@@ -15,7 +15,7 @@ const path = require('path')
 
 const Storage = multer.diskStorage({
     destination:function (req,file,cb){
-        cb(null,'./public/productImages')
+        cb(null,'./public/admin/assets/img/products')
     },
     filename: (req,file,cb)=>{
         cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname))
@@ -35,22 +35,41 @@ const upload = multer({
 
 
 
-
 const loadDashboard = (req,res)=>{
     res.render('dashboard')
 }
 
-const loadProduct = (req,res)=>{
-    res.render('product')
+const loadProduct = async(req,res)=>{
+   try {
+	 const productData = await productModel.find({}).exec((err,product)=>{
+	        if(product){
+	            console.log(product);
+	            res.render('product',{product})
+	        }else{
+	            res.send('404 page not found')
+	        }
+	    })
+} catch (error) {
+	console.log(error.message);
 }
 
-const loadAddProduct = (req,res)=>{
-    res.render('addProducts',)
 }
 
-const loadUsers = (req,res)=>{
-    
-    res.render('users')
+const loadAddProduct =(req,res)=>{
+    res.render('addProducts')
+}
+
+const loadUsers =async (req,res)=>{
+    try {
+        const userData = await userModel.find({}).exec((err,user)=>{
+            if (user) {
+                console.log(user);
+                res.render('users',{user})
+            }
+        })
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 const loadLogin = (req,res)=>{
@@ -77,6 +96,7 @@ const addProduct = async(req,res,next)=>{
         console.log(error.message);
     }
 }
+
 
 
 //post methods
@@ -113,6 +133,8 @@ async function verifyLogin(req, res, next) {
         console.log(error.message)
     }
 }
+
+
 
 
 

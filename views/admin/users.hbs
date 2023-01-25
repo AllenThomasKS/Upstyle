@@ -153,10 +153,12 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
+                      {{#each user}}
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>01</strong></td>
-                        <td>Vijin</td>
-                        <td>vfcvijin@gmail.com</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{id}}</strong></td>
+                        <td>{{name}}</td>
+                        <td>{{email}}</td>
+                        {{#if isAvailable}}
                         <td><span class="badge bg-label-primary me-1">Active</span></td>
                         {{!-- <td>
                           <div class="dropdown">
@@ -173,11 +175,21 @@
                             </div>
                           </div>
                         </td> --}}
+                        {{else}}
+                      <td><span class="badge bg-label-primary me-1">Blocked</span></td>
+                      {{/if}}
 
+                      {{#if isAvailable}}
                     <td>
                         <button class="btn btn-danger">Block</button>
                     </td>
+                    {{else}}
+                    <td>
+                        <button class="btn btn-danger">UnBlock</button>
+                    </td>
+                    {{/if}}
                       </tr>
+                      {{/each}}
                     </tbody>
                   </table>
                 </div>

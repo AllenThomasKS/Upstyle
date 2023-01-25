@@ -1,6 +1,7 @@
 
 
 const bcrypt = require('bcrypt')
+const productModel = require('../model/productModel')
 const userModel = require('../model/userModel')
 
 
@@ -25,13 +26,24 @@ loadContact=(req,res)=>{
 }
 
 loadProduct=(req,res)=>{
-    const session = req.session.user_id
-    res.render('productDetails',{session})
+    res.render('products')
+    
 }
 
 loadShop=(req,res)=>{
-    const session = req.session.user_id
-    res.render('shop',{session})
+    try {
+        const session = req.session.user_id
+             
+            productModel.find({}).exec((err,product)=>{
+                if(product){
+                    res.render('shop',{session,product})
+                }else{
+                    res.render('shop',{session})
+                }
+            })
+    } catch (error) {
+        console.log(error.message);
+    } 
 }
 
 loadLogin=(req,res)=>{
@@ -118,5 +130,6 @@ module.exports={
     loadLogin,
     loadRegister,
     registerUser,
-    verifyLogin
+    verifyLogin,
 }
+    

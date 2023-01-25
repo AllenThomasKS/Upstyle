@@ -5,7 +5,8 @@ const path = require('path')
 const mongoose = require('mongoose')
 const nocache = require('nocache')
 
-
+const Handlebars = require('handlebars')
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
 
 //routes setting
 const userRouter = require('./router/userRouter')
@@ -26,7 +27,7 @@ app.set('view engine','hbs')
 //setting up admin router
 adminRouter.set('views',path.join(__dirname,'views/admin'))
 adminRouter.set('view engine','hbs')
-adminRouter.engine('hbs',hbs.engine({extname:'hbs', defaultLayout:'adminLayout', layoutsDir:__dirname+'/views/layout',partialsDir:__dirname+'/views/partials'}))
+adminRouter.engine('hbs',hbs.engine({extname:'hbs',handlebars:allowInsecurePrototypeAccess(Handlebars), defaultLayout:'adminLayout', layoutsDir:__dirname+'/views/layout',partialsDir:__dirname+'/views/partials'}))
 
 
 
@@ -34,12 +35,12 @@ adminRouter.engine('hbs',hbs.engine({extname:'hbs', defaultLayout:'adminLayout',
 userRouter.set('views',path.join(__dirname,'views/user'))
 userRouter.set('view engine','hbs')
 //to show where files are kept 
-userRouter.engine('hbs',hbs.engine({extname:'hbs', defaultLayout:'layout', layoutsDir:__dirname+'/views/layout',partialsDir:__dirname+'/views/partials'}))
+userRouter.engine('hbs',hbs.engine({extname:'hbs',handlebars:allowInsecurePrototypeAccess(Handlebars), defaultLayout:'layout', layoutsDir:__dirname+'/views/layout',partialsDir:__dirname+'/views/partials'}))
 
 
 
 //setting up static files
-userRouter.use(express.static(path.join(__dirname,'public/user')))
+userRouter.use(express.static(path.join(__dirname,'public')))
 app.use(express.static(path.join(__dirname,'public/admin')))
 
 
