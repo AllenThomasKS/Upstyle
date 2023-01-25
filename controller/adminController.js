@@ -146,7 +146,6 @@ const editProduct = (req,res,next)=>{
         // image: req.body.image
        }}).then(()=>{res.redirect('/admin/products')})
 
-       res.redirect('/admin/product')
    } catch (error) {
     console.log(error.message);
    }
@@ -171,6 +170,30 @@ const loadEditProduct =  (req,res)=>{
 }
 
 
+const blockUser = async(req,res)=>{
+   const userData = await userModel.findById({_id:req.query.id})
+
+   if (userData.isAvailable){
+    await userModel.findByIdAndUpdate({_id:req.query.id},{$set:{isAvailable:false}})
+
+   }else{
+   await userModel.findByIdAndUpdate({_id:req.query.id},{$set:{isAvailable:true}})
+   }
+   res.redirect('/admin/users')
+} 
+
+const inStock = async(req,res)=>{
+    const product = await productModel.findById({_id:req.query.id})
+
+    if(product.isAvailable){
+    await productModel.findByIdAndUpdate({_id:req.query.id},{$set:{isAvailable:false}})
+    
+    }else{
+        await productModel.findByIdAndUpdate({_id:req.query.id},{$set:{isAvailable:true}})
+    }
+    res.redirect('/admin/products')
+}
+
 
 
 module.exports = {
@@ -183,5 +206,7 @@ module.exports = {
     addProduct,
     upload,
     editProduct,
-    loadEditProduct
+    loadEditProduct,
+    blockUser,
+    inStock
 }

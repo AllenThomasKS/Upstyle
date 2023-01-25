@@ -41,7 +41,9 @@ route.get('/logout',adminAuth.logout)
 
 route.get('/editProduct',adminController.loadEditProduct)
 
+route.get('/block',adminController.blockUser)
 
+route.get('/stock',adminController.inStock)
 
 
 //post methods

@@ -147,7 +147,7 @@
                       <form action="/admin/update" method="post" >
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-fullname">Product Name</label>
-                          <input type="text" class="form-control" name="product" id="basic-default-fullname" placeholder="product name" />
+                          <input type="text" class="form-control" value="{{product.name}}" name="product" id="basic-default-fullname" placeholder="product name" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-company">Category</label>
@@ -200,12 +200,12 @@
                           <label class="form-label" for="basic-default-message">Description</label>
                           <input
                             id="basic-default-message" name="description"
-                            class="form-control" "{{product.description}}"
+                            class="form-control" value="{{product.description}}"
 
                             placeholder="about product"
                           ></input>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add Product</button>
+                        <button type="submit" class="btn btn-primary">Update Product</button>
                       </form>
                     </div>
                   </div>

@@ -181,11 +181,11 @@
 
                       {{#if isAvailable}}
                     <td>
-                        <button class="btn btn-danger">Block</button>
+                        <button class="btn btn-danger"><a style="text-decoration:none; color: aliceblue;" href="/admin/block?id={{_id}}">Block</a></button>
                     </td>
                     {{else}}
                     <td>
-                        <button class="btn btn-danger">UnBlock</button>
+                        <button class="btn btn-success"><a style="text-decoration:none; color: aliceblue;" href="/admin/block?id={{_id}}">Unblock</a></button>
                     </td>
                     {{/if}}
                       </tr>
