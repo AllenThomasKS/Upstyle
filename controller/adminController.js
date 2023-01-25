@@ -136,6 +136,39 @@ async function verifyLogin(req, res, next) {
 
 
 
+const editProduct = (req,res,next)=>{
+   try {
+       productModel.findByIdAndUpdate({_id:req.body.ID},{$set:{
+        name : req.body.name,
+        price : req.body.price,
+        category : req.body.category,
+        description : req.body.description,
+        // image: req.body.image
+       }}).then(()=>{res.redirect('/admin/products')})
+
+       res.redirect('/admin/product')
+   } catch (error) {
+    console.log(error.message);
+   }
+}
+
+const loadEditProduct =  (req,res)=>{
+
+    try {
+        
+    productModel.findById({_id:req.query.id}).exec((err,product)=>{
+
+        if (product) {
+
+            res.render('editProduct',{product})
+            
+        }
+
+        })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 
 
@@ -148,5 +181,7 @@ module.exports = {
     loadLogin,
     verifyLogin,
     addProduct,
-    upload
+    upload,
+    editProduct,
+    loadEditProduct
 }

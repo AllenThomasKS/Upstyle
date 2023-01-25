@@ -23,7 +23,7 @@ const productSchema = new Schema({
         type:String,
     },
     isAvailable:{
-        type:String,
+        type:Boolean,
         required:true
     }
 })

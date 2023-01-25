@@ -8,6 +8,7 @@ const adminAuth = require('../middleware/adminAuth')
 const nocache = require('nocache')
 const upload = require('../util/multer')
  
+
 route.use(express.json())
 route.use(express.urlencoded({extended:true}))
 
@@ -38,6 +39,8 @@ route.get('/dashboard',adminAuth.isLogout,adminController.loadDashboard)
 
 route.get('/logout',adminAuth.logout)
 
+route.get('/editProduct',adminController.loadEditProduct)
+
 
 
 
@@ -47,6 +50,7 @@ route.post('/',adminController.verifyLogin)
 
 route.post('/addProducts',adminController.upload,adminController.addProduct,adminController.loadAddProduct)
 
+route.post('/update',adminController.editProduct)
 
 
 
