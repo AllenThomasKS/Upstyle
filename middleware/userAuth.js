@@ -1,7 +1,10 @@
+const session = require("express-session");
+
 const isLogin = (req,res,next)=>{
     try {
+        
         if(req.session.user_id){
-            res.render('home')
+            res.render('home',)
         }else{
             next()
         }
@@ -16,7 +19,9 @@ const isLogout = (req,res,next)=>{
         if(req.session.user_id){
             next()
         }else{
-            res.render('userLogin')
+            const login = true
+            session = null
+            res.render('userLogin',{login,session})
         }
     } catch (error) {
         console.log(error.message);

@@ -2,6 +2,7 @@
 
 const bcrypt = require('bcrypt')
 const productModel = require('../model/productModel')
+const { findById } = require('../model/userModel')
 const userModel = require('../model/userModel')
 
 
@@ -11,34 +12,40 @@ const userModel = require('../model/userModel')
 
 loadHome=(req,res)=>{
     const session = req.session.user_id
-    res.render('home',{session})
+    const login = false
+    res.render('home',{session,login})
 }
 
 
 loadCart=(req,res)=>{
     const session = req.session.user_id
-    res.render('cart',{session})
+    const login = false
+    res.render('cart',{session,login})
 }
 
 loadContact=(req,res)=>{
     const session = req.session.user_id
-    res.render('contact',{session})
+    const login = false
+    res.render('contact',{session,login})
 }
 
 loadProduct=(req,res)=>{
-    res.render('products')
+    const session = req.session.user_id
+    const login = false
+    res.render('products',{login,session})
     
 }
 
 loadShop=(req,res)=>{
     try {
         const session = req.session.user_id
+        const login = false
              
             productModel.find({}).exec((err,product)=>{
                 if(product){
-                    res.render('shop',{session,product})
+                    res.render('shop',{session,product,login})
                 }else{
-                    res.render('shop',{session})
+                    res.render('shop',{session,login})
                 }
             })
     } catch (error) {
@@ -47,13 +54,31 @@ loadShop=(req,res)=>{
 }
 
 loadLogin=(req,res)=>{
-    res.render('userLogin')
+       let login = true
+    res.render('userLogin',{login})
 }
 
 loadRegister=(req,res)=>{
-    res.render('register')
+    const login = true
+    res.render('register',{login})
 }
 
+loadProductDetails = async(req,res)=>{
+    const login = false
+   try {
+	 const session = req.session.user_id
+
+     console.log(req.query.id);
+	
+	   const product =await productModel.findById({_id:req.query.id})
+	
+	    res.render('productDetails',{product,session,login})
+} catch (error) {
+
+    console.log(error.message);
+	
+}
+}
 
 
 // post methods
@@ -73,7 +98,7 @@ const registerUser = async(req,res,next)=>{
     
         })
        await user.save().then(()=>{
-        console.log(user+"user saved successfully")
+        req.session.user_id = req.body.name
        })
        next()
     } catch (error) {
@@ -131,5 +156,6 @@ module.exports={
     loadRegister,
     registerUser,
     verifyLogin,
+    loadProductDetails
 }
     

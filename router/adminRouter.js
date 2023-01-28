@@ -45,6 +45,7 @@ route.get('/block',adminController.blockUser)
 
 route.get('/stock',adminController.inStock)
 
+route.get('/')
 
 //post methods
 

@@ -31,7 +31,7 @@ cookie: {
 
 //get methods
 
-route.get('/cart',userController.loadCart)
+route.get('/cart',userAuth.isLogout,userController.loadCart)
 
 route.get('/contact',userController.loadContact)
 
@@ -47,7 +47,7 @@ route.get('/register',userController.loadRegister)
 
 route.get('/logout',userAuth.logout)
 
-
+route.get('/productDetails',userController.loadProductDetails)
 
 //post methods
 

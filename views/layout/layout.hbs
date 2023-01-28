@@ -4,6 +4,9 @@
 	<title>Home 02</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link type="text/css" rel="stylesheet" href="user/magiczoom/magiczoom.css"/>
+	<script type="text/javascript" src="user/magiczoom/magiczoom.js"></script>
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="user/images/icons/favicon.png"/>
 <!--===============================================================================================-->
@@ -39,7 +42,9 @@
 <body class="animsition">
 
 
-{{#if session}}
+{{#if login}}
+{{>nonav}}
+{{else if session}}
 {{>loginNav}}
 {{else}}
 {{>userPartials}}
@@ -48,8 +53,8 @@
 
 {{{body}}}
 
-{{#if admin}}
-{{>adminFooter}}
+{{#if login}}
+{{>nonav}}
 {{else}}
 {{>userFooter}}
 {{/if}}
