@@ -1,7 +1,6 @@
 // const multer = require('multer')
 // const path = require('path')
 
-
 // const Storage = multer.diskStorage({
 //     destination: (req,res,cb)=>{
 //         cb(null,'./public/productImages')
@@ -11,11 +10,9 @@
 //     }
 // })
 
-
 // const upload = multer({
-//     storage: Storage 
+//     storage: Storage
 // }).single('images')
-
 
 // module.exports = {
 //     upload
