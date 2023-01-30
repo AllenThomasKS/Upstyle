@@ -1,7 +1,9 @@
 const bcrypt = require("bcrypt");
 const productModel = require("../model/productModel");
-const { findById } = require("../model/userModel");
 const userModel = require("../model/userModel");
+const message = require('../config/sms')
+
+let newUser;
 
 //page rendering functions
 
@@ -77,19 +79,25 @@ loadProductDetails = async (req, res) => {
 
 const registerUser = async (req, res, next) => {
   try {
-    const password = await bcrypt.hash(req.body.password, 10);
-    const user = new userModel({
+
+    const userData = await userModel.findOne({email:req.body.email})
+    const userData1 = await userModel.findOne({mobile:req.body.mobile})
+
+    if (userData || userData1) {
+        res.render('register',{message: 'This account already exists'})
+    } else {
+    
+     newUser = {
       name: req.body.username,
-      password: password,
+      password: req.body.password,
       email: req.body.email,
       mobile: req.body.mobile,
       isAdmin: false,
-      isAvailable: true,
-    });
-    await user.save().then(() => {
-      req.session.user_id = req.body.name;
-    });
+    };
+    
     next();
+    }
+   
   } catch (error) {
     console.log(error.message);
   }
@@ -101,10 +109,10 @@ const verifyLogin = async (req, res, next) => {
     const userData = await userModel.findOne({ email });
 
     if (userData) {
-      const passwordMatch = await bcrypt.compare(
-        req.body.password,
-        userData.password
-      );
+        
+        
+      const passwordMatch = await bcrypt.compare(req.body.password,userData.password);
+        
 
       if (passwordMatch) {
         if (userData.isAvailable) {
@@ -126,6 +134,56 @@ const verifyLogin = async (req, res, next) => {
   }
 };
 
+const loadOtp =async (req, res) => {
+    const userData = newUser
+
+    const mobile = userData.mobile
+
+    newOTP = message.sendMessage(mobile,res)
+
+    console.log(newOTP);
+
+    res.render('otp',{newOTP, userData })
+
+};
+
+const verifyOtp =async (req, res, next) => {
+ 
+  try {
+	    const otp = req.body.newOtp
+	    
+        console.log(req.body.otp);
+	
+	    if (otp === req.body.otp) {
+	        
+	        const password = await bcrypt.hash(req.body.password,10)
+            
+            const user = new userModel({
+                name: req.body.name,
+                email:req.body.email,
+                mobile:req.body.mobile,
+                password:password,
+                isAdmin:false,
+                isAvailable:true
+            })
+            console.log(user);
+
+            await user.save().then(()=>console.log('register successful'))
+            if (user){
+                res.render('userLogin')
+            }else{
+                res.render('otp',{message: 'invalid otp'})
+            }
+
+        } else{
+            console.log('otp not match');
+        }
+} catch (error) {
+	console.log(error.message);
+}   
+
+};
+
 module.exports = {
   loadProduct,
   loadContact,
@@ -137,4 +195,6 @@ module.exports = {
   registerUser,
   verifyLogin,
   loadProductDetails,
+  loadOtp,
+  verifyOtp,
 };

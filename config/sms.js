@@ -1,10 +1,12 @@
 const fast2sms = require("fast-two-sms");
+require('dotenv').config()
+
 
 const sendMessage = function (mobile, res) {
-  let randomOTP = Math.floor(Math.random() * 10000);
+    let randomOTP = Math.floor(Math.random() * 10000);
   var options = {
-    authorization:
-      "0HjvrhqJABd2itKeTUGDfgS7luM36WcNYwyIVPLx15ZoC4QXbsjzNEOoGtw20XV9TkLUP3vR7eQKrnb4",
+    authorization:'rwzBRzybTw8uVh3x9junOWHPhS5IaXiT4HDr0dPedRhEN8vegSvS8OnUdVvh',
+      
     message: `your OTP verification code is ${randomOTP}`,
     numbers: [mobile],
   };
@@ -17,7 +19,11 @@ const sendMessage = function (mobile, res) {
     .catch((error) => {
       console.log(error);
     });
-  return randomOTP;
+    return randomOTP
 };
 
-mod;
+
+
+module.exports = {
+    sendMessage
+}
