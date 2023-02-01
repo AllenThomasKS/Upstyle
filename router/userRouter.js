@@ -47,9 +47,10 @@ route.get("/register", userController.loadRegister);
 route.get("/logout", userAuth.logout);
 
 route.get("/productDetails", userController.loadProductDetails);
-
+ 
 route.get("/otp",userController.loadOtp)
 
+route.get('/address',userController.loadAddress)
 //post methods
 
 route.post("/register", userController.registerUser, userController.loadOtp);

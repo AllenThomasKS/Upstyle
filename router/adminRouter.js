@@ -44,8 +44,15 @@ route.get("/block", adminController.blockUser);
 
 route.get("/stock", adminController.inStock);
 
+route.get('/category',adminController.loadCategory)
+
 route.get("/");
 
+route.get('/category',adminController.loadCategory)
+
+route.get('/deleteCategory',adminController.deleteCategory)
+
+  
 //post methods
 
 route.post("/", adminController.verifyLogin);
@@ -58,5 +65,7 @@ route.post(
 );
 
 route.post("/update", adminController.editProduct);
+
+route.post('/addCategory',adminController.addCategory,adminController.loadCategory)
 
 module.exports = route;

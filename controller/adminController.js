@@ -1,6 +1,7 @@
 const userModel = require("../model/userModel");
 const bcrypt = require("bcrypt");
 const productModel = require("../model/productModel");
+const categoryModel = require("../model/categoryModel");
 // const upload = require('../util/multer')
 
 const multer = require("multer");
@@ -42,7 +43,13 @@ const loadProduct = async (req, res) => {
 };
 
 const loadAddProduct = (req, res) => {
-  res.render("addProducts");
+  try {
+    categoryModel.find().exec((err, category) => {
+      res.render("addProducts", { category });
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 const loadUsers = async (req, res) => {
@@ -183,6 +190,38 @@ const inStock = async (req, res) => {
   res.redirect("/admin/products");
 };
 
+const addCategory = async (req, res, next) => {
+  const category = await categoryModel.findOne({ name: req.body.name });
+
+  if (!category) {
+    const category = new categoryModel({
+      name: req.body.name,
+    });
+    await category.save().then(() => {
+      console.log("category saved successfully");
+    });
+    next();
+  } else {
+    res.redirect("/admin/category");
+  }
+};
+
+const loadCategory = (req, res, next) => {
+  categoryModel.find({}).exec((err, category) => {
+    if (category) {
+      res.render("category", { category });
+    } else {
+      console.log("no category found");
+    }
+  });
+};
+
+const deleteCategory = async (req, res) => {
+  await categoryModel.findByIdAndDelete({ _id: req.query.id });
+
+  res.redirect("/admin/category");
+};
+
 module.exports = {
   loadDashboard,
   loadProduct,
@@ -196,4 +235,7 @@ module.exports = {
   loadEditProduct,
   blockUser,
   inStock,
+  loadCategory,
+  addCategory,
+  deleteCategory,
 };

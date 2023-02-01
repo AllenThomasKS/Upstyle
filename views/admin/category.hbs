@@ -104,7 +104,7 @@
       </a>
     </li>
 
-    <li class="menu-item">
+    <li class="menu-item active">
       <a href="/admin/category" class="menu-link">
         <i class="bi bi-collection menu-icon"></i>
         {{! <i class="menu-icon tf-icons bx bx-home-circle"></i> }}
@@ -112,7 +112,7 @@
       </a>
     </li>
 
-    <li class="menu-item active">
+    <li class="menu-item ">
       <a href="/admin/addProducts" class="menu-link">
         <i class="bi bi-plus-square-dotted menu-icon"></i>
         {{! <i class="menu-icon tf-icons bx bx-home-circle"></i> }}
@@ -163,8 +163,8 @@
 <!-- Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms/</span>
-    Vertical Layouts</h4>
+  {{!-- <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms/</span>
+    Vertical Layouts</h4> --}}
 
   <!-- Basic Layout -->
   <div class="row">
@@ -173,91 +173,60 @@
         <div
           class="card-header d-flex justify-content-between align-items-center"
         >
-          <h5 class="mb-0">Basic Layout</h5>
+          <h5 class="mb-0">Add Category</h5>
         </div>
         <div class="card-body">
           <form
-            action="/admin/addProducts"
+            action="/admin/addCategory"
             method="post"
-            enctype="multipart/form-data"
+            
           >
             <div class="mb-3">
-              <label class="form-label" for="basic-default-fullname">Product
+              <label class="form-label" for="basic-default-fullname">Category
                 Name</label>
               <input
                 type="text"
                 class="form-control"
-                name="product"
+                name="name"
                 id="basic-default-fullname"
-                placeholder="product name"
+                placeholder="Electronics"
               />
             </div>
-            {{!-- <div class="mb-3">
-              <label
-                class="form-label"
-                for="basic-default-company"
-              >Category</label>
-              <input
-                type="text"
-                name="category"
-                class="form-control"
-                id="basic-default-company"
-                placeholder="electronics"
-              />
-            </div> --}}
-
-            <div class="mb-3">
-                        <label for="defaultSelect" class="form-label">category</label>
-                        <select name ='category' id="defaultSelect" class="form-select">
-                         {{#each category}} 
-                          <option value={{name}}>{{name}}</option>
-                         
-                          {{/each}}
-                        </select>
-                      </div>
-
-            <div class="mb-3">
-              <label class="form-label" for="basic-default-email">Price</label>
-              <div class="input-group input-group-merge">
-                <input
-                  type="text"
-                  name="price"
-                  id="basic-default-email"
-                  class="form-control"
-                  placeholder="$"
-                  aria-label="john.doe"
-                  aria-describedby="basic-default-email2"
-                />
-
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="basic-default-phone">Image</label>
-              <input
-                type="file"
-                name="images"
-                id="basic-default-phone"
-                class="form-control phone-mask"
-                placeholder="658 799 8941"
-              />
-            </div>
-            <div class="mb-3">
-              <label
-                class="form-label"
-                for="basic-default-message"
-              >Description</label>
-              <textarea
-                id="basic-default-message"
-                name="description"
-                class="form-control"
-                placeholder="about product"
-              ></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Add Product</button>
+            
+            <button type="submit" class="btn btn-primary">Add Category</button>
           </form>
         </div>
       </div>
     </div>
   </div>
+
+   <!-- Basic Bootstrap Table -->
+              <div class="card">
+                <h5 class="card-header">Category List</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Sl no</th>
+                        <th>catagory Name</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      {{#each category}}
+                      <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{@index}}</strong></td>
+                        <td>{{name}}</td>
+                        
+                       <td><button class="btn btn-danger"><a style="text-decoration: none;color:rgb(255, 255, 255) ;" href="/admin/deleteCategory?id={{_id}}">Delete</a></button></td>
+
+                      </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!--/ Basic Bootstrap Table -->
+
 </div>
 <!-- / Content -->

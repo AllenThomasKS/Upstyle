@@ -109,7 +109,7 @@ const verifyLogin = async (req, res, next) => {
     const userData = await userModel.findOne({ email });
 
     if (userData) {
-        
+
         
       const passwordMatch = await bcrypt.compare(req.body.password,userData.password);
         
@@ -184,6 +184,10 @@ const verifyOtp =async (req, res, next) => {
 
 };
 
+const loadAddress = (req,res)=>{
+    res.render('address')
+}
+
 module.exports = {
   loadProduct,
   loadContact,
@@ -197,4 +201,5 @@ module.exports = {
   loadProductDetails,
   loadOtp,
   verifyOtp,
+  loadAddress,
 };
