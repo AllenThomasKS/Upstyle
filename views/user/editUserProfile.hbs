@@ -1,0 +1,102 @@
+
+<div class="container-xxl flex-grow-1 container-p-y">
+ 
+  <!-- Basic Layout -->
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-4">
+      <div class="card mb-4">
+        
+        <div class="card-body">
+          <form
+            action="/editUser"
+            method="post"
+            
+          >
+          <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+         <img
+            width="70px"
+            height="70px"
+            style="border-radius: 50%;"
+            src="admin/001.avif"
+            alt=""
+          />
+          <h5 class="mb-0">Basic Layout</h5>
+        
+        </div>
+            <div class="mb-3">
+              <label class="form-label" for="basic-default-fullname">
+                Name</label>
+              <input
+              value={{user.name}}
+                type="text"
+                name="name"
+                class="form-control"
+                id="basic-default-fullname"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="basic-default-fullname">
+                Mobile</label>
+              <input disabled
+                type="text"
+              value={{user.mobile}}
+
+                name="mobile"
+                class="form-control"
+                id="basic-default-fullname"
+              />
+              <span class=""><a href="#">edit</a></span>
+            </div>
+            
+             <div class="mb-3">
+              <label class="form-label" for="basic-default-fullname">
+                Email</label>
+              <input disabled
+              value={{user.email}}
+
+                type="email"
+                name="email"
+                class="form-control"
+                id="basic-default-fullname"
+              />
+              <span class=""><a href="#">edit</a></span>
+            </div>
+           
+            {{!-- <div class="mb-3">
+              <label class="form-label" for="basic-default-email">Mobile</label>
+              <div class="input-group input-group-merge">
+                <input disabled
+                  name="price"
+                  type="text"
+                  id="basic-default-email"
+                  class="form-control "
+                  placeholder="$500"
+                  aria-label="john.doe"
+                  aria-describedby="basic-default-email2"
+                />
+                
+              </div>
+            </div> --}}
+           <div class="mb-3">
+              <label class="form-label" for="basic-default-fullname">
+                Date of Birth</label>
+              <input
+                type="text"
+              {{!-- value={{user.dob}} --}}
+
+                name="product"
+                class="form-control"
+                id="basic-default-fullname"
+              />
+            </div>
+            
+            <button style="margin-left: 150px;"  type="submit" class="btn btn-primary justify-content-center">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -7,7 +7,7 @@
 					
 					<!-- Logo desktop -->		
 					<a href="#" class="logo">
-						<span>Upstyle</span>
+						<span>LuxLooks</span>
 						{{!-- <img src="images/icons/logo-01.png" alt="IMG-LOGO"> --}}
 					</a>
 
@@ -45,21 +45,27 @@
 								<a href="/cart"><i class="zmdi zmdi-shopping-cart"></i></a>
 							</div>
 						</div>
-							
+
+
 						<div class="flex-c-m h-full p-l-18 p-r-25 bor5">
-							<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-cart" data-notify="2">
-								
-								<i class="bi bi-bag-heart"></i
+							<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 " data-notify="2">
+								<a href="/wishlist"><i class="bi bi-bag-heart"></i></a>
 							</div>
 						</div>
 
 						
 
 						<div class="flex-c-m h-full p-l-18 p-r-25 bor5">
-							<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 " data-notify="2">
-								<a style="text-decoration: none; color: black;" href="/login"><i class="bi bi-person-circle"></i></a>
-								
-							</div>
+							<div class="dropdown">
+  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <img style="width: 46px; border-radius: 50%; height: 46px;" src="admin/001.avif" alt="">
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="/userProfile">Account</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="/login">Login</a>
+  </div>
+</div>
 						</div>
 							
 						<div class="flex-c-m h-full p-lr-19">
@@ -280,7 +286,7 @@
 		<div class="header-cart flex-col-l p-l-65 p-r-25">
 			<div class="header-cart-title flex-w flex-sb-m p-b-8">
 				<span class="mtext-103 cl2">
-					Your Cart
+					Wishlist
 				</span>
 
 				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
@@ -290,6 +296,7 @@
 			
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full">
+					{{#each item}}
 					<li class="header-cart-item flex-w flex-t m-b-12">
 						<div class="header-cart-item-img">
 							<img src="images/item-cart-01.jpg" alt="IMG">
@@ -297,46 +304,18 @@
 
 						<div class="header-cart-item-txt p-t-8">
 							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								White Shirt Pleat
+								{{name}}
 							</a>
 
 							<span class="header-cart-item-info">
-								1 x $19.00
+								{{price}}
 							</span>
 						</div>
 					</li>
 
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-02.jpg" alt="IMG">
-						</div>
+					{{/each}}
 
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Converse All Star
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $39.00
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-03.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Nixon Porter Leather
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $17.00
-							</span>
-						</div>
-					</li>
+					
 				</ul>
 				
 				<div class="w-full">

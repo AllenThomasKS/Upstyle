@@ -15,7 +15,7 @@ const sendMessage = function (mobile, res) {
     .sendMessage(options)
     .then((response) => {
       console.log("otp sent successfully");
-    })
+    })  
     .catch((error) => {
       console.log(error);
     });
@@ -27,3 +27,5 @@ const sendMessage = function (mobile, res) {
 module.exports = {
     sendMessage
 }
+
+

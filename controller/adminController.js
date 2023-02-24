@@ -7,21 +7,21 @@ const categoryModel = require("../model/categoryModel");
 const multer = require("multer");
 const path = require("path");
 
-const Storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./public/admin/assets/img/products");
-  },
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
-
-const upload = multer({
-  storage: Storage,
-}).single("images");
+// const Storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "./public/admin/assets/img/products");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(
+//       null,
+//       file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+//     );
+//   },
+// });
+    
+// const upload = multer({
+//   storage: Storage,
+// }).single("images");
 
 const loadDashboard = (req, res) => {
   res.render("dashboard");
@@ -72,17 +72,19 @@ const loadLogin = (req, res) => {
 
 const addProduct = async (req, res, next) => {
   try {
+    const images = req.files
     const product = new productModel({
       name: req.body.product,
       category: req.body.category,
       price: req.body.price,
+      image: images.map((x) => x.filename),
       description: req.body.description,
+      quantity:req.body.qty,
       isAvailable: true,
-      image: req.file.filename,
     });
-    await product.save().then(() => {
-      console.log("product saved");
-    });
+
+    await product.save().then(() => console.log("Product Saved"));
+
     next();
   } catch (error) {
     console.log(error.message);
@@ -123,6 +125,7 @@ async function verifyLogin(req, res, next) {
 
 const editProduct = (req, res, next) => {
   try {
+    const images = req.files
     productModel
       .findByIdAndUpdate(
         { _id: req.body.ID },
@@ -131,6 +134,7 @@ const editProduct = (req, res, next) => {
             name: req.body.name,
             price: req.body.price,
             category: req.body.category,
+            image: images.map((x) => x.filename),
             description: req.body.description,
             // image: req.body.image
           },
@@ -144,13 +148,14 @@ const editProduct = (req, res, next) => {
   }
 };
 
-const loadEditProduct = (req, res) => {
+const loadEditProduct = async(req, res) => {
   try {
-    productModel.findById({ _id: req.query.id }).exec((err, product) => {
-      if (product) {
-        res.render("editProduct", { product });
-      }
-    });
+   const category = await categoryModel.find({})
+
+  const product = await productModel.findById({ _id: req.query.id })
+
+  res.render('editProduct',{product,category})
+
   } catch (error) {
     console.log(error.message);
   }
@@ -230,7 +235,6 @@ module.exports = {
   loadLogin,
   verifyLogin,
   addProduct,
-  upload,
   editProduct,
   loadEditProduct,
   blockUser,

@@ -1,4 +1,5 @@
- <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
               <span class="app-brand-logo demo">
@@ -56,7 +57,7 @@
                   </g>
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">upStyle</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -68,53 +69,56 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item ">
+            <li class="menu-item">
               <a href="/admin" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <i class="menu-icon -icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
             </li>
-
             <li class="menu-item ">
               <a href="/admin/products" class="menu-link">
-              <i class="bi bi-box-seam menu-icon "></i>
-                {{!-- <i class="menu-icon tf-icons bx bx-home-circle"></i> --}}
+              <i class="menu-icon bi bi-box2"></i>
                 <div data-i18n="Analytics">Products</div>
               </a>
             </li>
-                <li class="menu-item">
-          <a href="/admin/category" class="menu-link">
-            <i class="bi bi-collection menu-icon"></i>
-            {{! <i class="menu-icon tf-icons bx bx-home-circle"></i> }}
-            <div data-i18n="Analytics">Category</div>
-          </a>
-        </li>
+            <li class="menu-item">
+      <a href="/admin/category" class="menu-link">
+        <i class="menu-icon bi bi-card-list"></i>
+        <div data-i18n="Analytics">Category</div>
+      </a>
+    </li>
              <li class="menu-item active ">
               <a href="/admin/addProducts" class="menu-link">
-              <i class="bi bi-plus-square-dotted menu-icon "></i>
-                {{!-- <i class="menu-icon tf-icons bx bx-home-circle"></i> --}}
+             <i class=" menu-icon bi bi-plus-square-dotted"></i>
                 <div data-i18n="Analytics">Add Products</div>
               </a>
             </li>
             <li class="menu-item ">
               <a href="/admin/users" class="menu-link">
-              <i class="bi bi-people menu-icon "></i>
-                {{!-- <i class="menu-icon tf-icons bx bx-bi-people"></i> --}}
+                {{!-- <i class="menu-icon tf-icons bx bx-people"></i> --}}
+                <i class="menu-icon tf-icons bx bi bi-people"></i>
                 <div data-i18n="Analytics">Users</div>
               </a>
             </li>
-
-           <!-- Layouts -->
+             <li class="menu-item ">
+              <a href="/admin/order" class="menu-link">
+                {{!-- <i class="menu-icon tf-icons bx bx-people"></i> --}}
+                <i class="menu-icon tf-icons bx bi bi-people"></i>
+                <div data-i18n="Analytics">Order Details</div>
+              </a>
+            </li>
+ <!-- Layouts -->
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="bi bi-person-rolodex menu-icon "></i>
+                {{!-- <i class="menu-icon tf-icons bx bx-layout"></i> --}}
+                <i class="menu-icon bi bi-person-vcard"></i>
                 <div data-i18n="Layouts">Account</div>
               </a>
 
-              <ul class="menu-sub">
+                <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="layouts-without-menu.html" class="menu-link">
-                    <div data-i18n="Without menu">MyProfile</div>
+                    <div data-i18n="Without menu">My Profile</div>
                   </a>
                 </li>
                 <li class="menu-item">
@@ -129,6 +133,7 @@
                 </li>
                 <li class="menu-item">
                   <a href="/admin/logout" class="menu-link">
+                    {{!-- <i class=" menu-icon bi bi-box-arrow-left"></i> --}}
                     <div data-i18n="Fluid">Logout</div>
                   </a>
                 </li>
@@ -136,12 +141,10 @@
             </li>
           </ul>
         </aside>
- 
-  <!-- Content -->
+<!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Products/</span> Edit Products</h4>
-
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Products/</span>Edit Products</h4>
               <!-- Basic Layout -->
               <div class="row">
                 <div class="col-xl">
@@ -154,64 +157,99 @@
                       <form action="/admin/update" method="post" >
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-fullname">Product Name</label>
-                          <input type="text" class="form-control" value="{{product.name}}" name="product" id="basic-default-fullname" placeholder="product name" />
+                          <input type="text" name="name" value="{{product.name}}" class="form-control" id="basic-default-fullname" placeholder="iphone...." />
+                          
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-company">Category</label>
-                          <input type="text" name="category" value="{{product.category}}" class="form-control" id="basic-default-company" placeholder="electronics" />
+                          {{!-- <input type="text" value="{{product.category}}" name="category" class="form-control" id="basic-default-company" placeholder="Mobile..." /> --}}
+
+                          <select name="category"  id="defaultSelect" class="form-select">
+                            <option value={{product.category}} selected>{{product.category}}</option>
+                        {{#each category}}
+                          <option value={{name}}>{{name}}</option>
+                        {{/each}}
+                         
+                        </select>
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-email">Price</label>
                           <div class="input-group input-group-merge">
                             <input
-                              type="text" name="price"
+                            value="{{product.price}}"
+                            name="price"
+                              type="text"
                               id="basic-default-email"
                               class="form-control"
-                              value="{{product.price}}"
-                              placeholder="$"
+                              placeholder="$500"
                               aria-label="john.doe"
                               aria-describedby="basic-default-email2"
                             />
-                            
                           </div>
-                        </div>
-
-                        <div class="mb-3">
-                
-                          <div class="input-group input-group-merge">
+                           <div class="input-group input-group-merge">
                             <input
-                              type="hidden" name="ID"
+                            value="{{product._id}}"
+                            name="ID"
+                              type="hidden"
                               id="basic-default-email"
                               class="form-control"
-                              value="{{product._id}}"
-                              placeholder="$"
+                              placeholder="$500"
                               aria-label="john.doe"
                               aria-describedby="basic-default-email2"
                             />
-                            
                           </div>
+                          
+                          <div class="mb-3">
+                          <label class="form-label" for="basic-default-company">Product Images</label>
+                          {{#each product.image}}
+
+                          <img style="height: 96px;width: 72px;margin-top: 18px;"  src="assets/img/products/{{this}}  ">
+                        {{/each}}
                         </div>
-
-
+                        </div>
                         <div class="mb-3">
-                          <label class="form-label"  for="basic-default-phone">Image</label>
+                          <label class="form-label" for="basic-default-phone">Image</label>
                           <input
-                            type="file" name="images"
+                            name="image"
+                            type="file"
                             id="basic-default-phone"
-                            "{{product.image}}"
                             class="form-control phone-mask"
-                            placeholder="658 799 8941"
+                            {{!-- value="{{}}" --}}
                           />
                         </div>
                         <div class="mb-3">
+                          <label class="form-label" for="basic-default-phone">Image</label>
+                          <input
+                            name="image"
+                            type="file"
+                            id="basic-default-phone"
+                            class="form-control phone-mask"
+                            {{!-- value="{{}}" --}}
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-phone">Image</label>
+                          <input
+                            name="image"
+                            type="file"
+                            id="basic-default-phone"
+                            class="form-control phone-mask"
+                            {{!-- value="{{}}" --}}
+                          />
+                        </div>
+                       
+                        
+                        <div class="mb-3">
                           <label class="form-label" for="basic-default-message">Description</label>
                           <input
-                            id="basic-default-message" name="description"
-                            class="form-control" value="{{product.description}}"
-
-                            placeholder="about product"
+                          name="description"
+                          value="{{product.description}}"
+                            id="basic-default-message"
+                            class="form-control"
+                            placeholder="The Best iphone Ever Made.........."
                           ></input>
                         </div>
+
                         <button type="submit" class="btn btn-primary">Update Product</button>
                       </form>
                     </div>

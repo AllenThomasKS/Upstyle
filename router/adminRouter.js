@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const config = require("../config/config");
 const adminAuth = require("../middleware/adminAuth");
 const nocache = require("nocache");
-const upload = require("../util/multer");
+const multer = require("../util/multer");
 
 route.use(express.json());
 route.use(express.urlencoded({ extended: true }));
@@ -46,7 +46,7 @@ route.get("/stock", adminController.inStock);
 
 route.get('/category',adminController.loadCategory)
 
-route.get("/");
+// route.get("/");
 
 route.get('/category',adminController.loadCategory)
 
@@ -59,12 +59,12 @@ route.post("/", adminController.verifyLogin);
 
 route.post(
   "/addProducts",
-  adminController.upload,
+  multer.upload.array('images'),
   adminController.addProduct,
   adminController.loadAddProduct
 );
 
-route.post("/update", adminController.editProduct);
+route.post("/update",multer.upload.array('images'), adminController.editProduct);
 
 route.post('/addCategory',adminController.addCategory,adminController.loadCategory)
 

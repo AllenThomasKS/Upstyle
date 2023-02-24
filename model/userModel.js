@@ -37,21 +37,21 @@ const userSchema = new Schema({
         productId: {
           type: mongoose.Types.ObjectId,
           ref: "Product",
-          required: true,
+          // required: true,
         },
         qty: {
           type: Number,
-          required: true,
+          // required: true,
         },
         price: {
           type: Number,
-          required: true,
+          // required: true,
         },
       },
     ],
     totalPrice: {
       type: Number,
-      required: true,
+      // required: true,
     },
   },
   wishlist: {
@@ -60,61 +60,74 @@ const userSchema = new Schema({
         productId: {
           type: mongoose.Types.ObjectId,
           ref: "Product",
-          required: true,
+          // required: true,
         },
         price: {
           type: Number,
-          required: true,
+          // required: true,
         },
       },
     ],
   },
 });
 
-userSchema.methods.addToCart = function (product) {
-  const cart = this.cart;
-  const isExisting = cart.item.findIndex((objInItems) => {
+
+userSchema.methods.addToCart = async function (product) {
+ 
+  let cart = this.cart;
+
+  const isExisting = cart.item.findIndex((item) => {
     return (
-      new String(objInItems.productId).trim() == new String(product._id).trim()
+      new String(item.productId).trim() == new String(product._id).trim()
     );
   });
+
   if (isExisting >= 0) {
     cart.item[isExisting].qty += 1;
   } else {
-    cart.item.push({ productId: product._id, qty: 1, price: product.price });
+    cart.item.push({
+      productId: product._id,
+      qty: 1,
+    });
+  }
+
+  if (!cart.totalPrice) {
+    cart.totalPrice = 0;
   }
   cart.totalPrice += product.price;
-  console.log("User in schema:", this);
   return this.save();
-};
+}
 
 userSchema.methods.removefromCart = async function (productId) {
-  const cart = this.cart;
+  const cart = this.cart
   const isExisting = cart.item.findIndex(
     (objInItems) =>
       new String(objInItems.productId).trim() === new String(productId).trim()
-  );
+  )
   if (isExisting >= 0) {
-    const product = await ProductModel.findById(productId);
-    cart.totalPrice -= product.price * cart.item[isExisting].qty;
-    cart.item.splice(isExisting, 1);
-    console.log("User in schema:", this);
-    return this.save();
+    const prod = await ProductModel.findById(productId)
+    cart.totalPrice -= prod.price * cart.item[isExisting].qty
+    cart.item.splice(isExisting, 1)
+    console.log('User in schema:', this)
+    return this.save()
   }
-};
+}
 
 userSchema.methods.addToWishlist = function (product) {
   const wishlist = this.wishlist;
-  const isExisting = wishlist.item.findIndex((objInItems) => {
-    return (
-      new String(objInItems.productId).trim() == new String(product._id).trim()
-    );
+  const isExisting = wishlist.item.findIndex((item) => {
+    console.log(item.productId,'==',product._id)
+
+    return new String(item.productId).trim() == new String(product._id).trim();
+    
   });
+  console.log(isExisting);
   if (isExisting >= 0) {
   } else {
     wishlist.item.push({
       productId: product._id,
-      price: product.price,
+      // price: product,
+
     });
   }
   return this.save();
@@ -127,7 +140,6 @@ userSchema.methods.removefromWishlist = async function (productId) {
       new String(objInItems.productId).trim() === new String(productId).trim()
   );
   if (isExisting >= 0) {
-    await ProductModel.findById(productId);
     wishlist.item.splice(isExisting, 1);
     return this.save();
   }

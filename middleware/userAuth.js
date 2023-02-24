@@ -1,4 +1,5 @@
 const session = require("express-session");
+const userModel = require('../model/userModel')
 
 const isLogin = (req, res, next) => {
   try {
@@ -12,9 +13,10 @@ const isLogin = (req, res, next) => {
   }
 };
 
-const isLogout = (req, res, next) => {
+const isLogout = async(req, res, next) => {
   try {
-    if (req.session.user_id) {
+    const userData = await userModel.findById({_id: req.session.user_id})
+    if (req.session.user_id && userData.isAvailable==true) {
       next();
     } else {
       const login = true;
