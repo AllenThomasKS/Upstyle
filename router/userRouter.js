@@ -38,7 +38,7 @@ route.get("/", userController.loadHome);
 
 route.get("/product", userController.loadProduct);
 
-route.get("/shop",userAuth.logout, userController.loadShop);
+route.get("/shop", userController.loadShop);
 
 route.get("/login", userAuth.isLogin, userController.loadLogin);
 
