@@ -36,6 +36,11 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  Total:{
+
+    type:Number,
+
+  },
   createdAt: {
     type: Date,
     immutable: true,
@@ -63,13 +68,14 @@ const orderSchema = new mongoose.Schema({
   },
 
   status: {
-    type: Boolean,
-    default: true
+    type: String,
+    default: "Confirm"
   }
   , 
   productReturned: [{
     type: Number
-  }]
+  }],
+  
 
 })
 

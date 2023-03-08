@@ -31,6 +31,10 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  image:{
+    type: String,
+
+  },
   cart: {
     item: [
       {

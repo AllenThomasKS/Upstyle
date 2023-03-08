@@ -46,6 +46,22 @@ route.get("/stock", adminController.inStock);
 
 route.get('/category',adminController.loadCategory)
 
+//order management
+
+route.get('/order',adminAuth.isLogout, adminController.loadOrder)
+
+route.get('/cancelOrder',adminAuth.isLogout, adminController.cancelOrder)
+
+route.get('/confirmOrder',adminAuth.isLogout, adminController.confirmOrder)
+
+route.get('/deliOrder',adminAuth.isLogout, adminController.deliveredOrder)
+
+route.get('/returnOrder',adminAuth.isLogout, adminController.returnOrder)
+
+route.get('/viewOrder',adminAuth.isLogout, adminController.viewOrder)
+
+route.get('/sales',adminAuth.isLogout,adminController.salesReport)
+
 // route.get("/");
 
 route.get('/category',adminController.loadCategory)

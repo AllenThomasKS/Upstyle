@@ -43,7 +43,30 @@ adminRouter.engine(
     helpers:{
       inc:function(value,options){
         return parseInt(value) + 1
-      }
+      },
+      eq:function(v1, v2) {
+        if(v1 == v2) {
+          return  v2
+        }
+        else{
+          
+  
+        }
+      },
+      limit:function(ary, max, options) {
+        if(!ary || ary.length == 0)
+            return options.inverse(this);
+    
+        var result = [ ];
+        for(var i = 0; i < max && i < ary.length; ++i)
+            result.push(options.fn(ary[i]));
+        return result.join('');
+    },
+    formatNumber:function (num) {
+      return num.toLocaleDateString('en-US');
+    }, multi:function(val1,val2){
+      return val1*val2;
+    } 
 
     }  })
 );
@@ -69,6 +92,21 @@ app.engine(
         for(var i = 0; i < max && i < ary.length; ++i)
             result.push(options.fn(ary[i]));
         return result.join('');
+    },inc:function(value,options){
+      return parseInt(value) + 1
+    }, eq:function(v1, v2) {
+      if(v1 == v2) {
+        return  v2
+      }
+      else{
+        
+
+      }
+    },
+    formatNumber:function (num) {
+      return num.toLocaleDateString('en-US');
+    }, multi:function(val1,val2){
+      return val1*val2;
     }
     }
   })
@@ -77,6 +115,17 @@ app.engine(
 //setting up static files
 userRouter.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "public/admin")));
+
+
+// error handlers
+
+// app.use((req, res, next) => {
+//   res.status(404).render('404.hbs')
+// })
+ 
+// app.use((err,req, res, next) => {
+//   res.status(500).render('404.hbs')
+// })
 
 //data base connection setting
 mongoose.set("strictQuery", true);

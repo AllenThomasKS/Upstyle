@@ -15,13 +15,10 @@ const isLogin = (req, res, next) => {
 
 const isLogout = async(req, res, next) => {
   try {
-    const userData = await userModel.findById({_id: req.session.user_id})
-    if (req.session.user_id && userData.isAvailable==true) {
+    if (req.session.user_id) {
       next();
     } else {
-      const login = true;
-      session = null;
-      res.render("userLogin", { login, session });
+      res.render("userLogin",{login:true,});
     }
   } catch (error) {
     console.log(error.message);
@@ -30,7 +27,7 @@ const isLogout = async(req, res, next) => {
 
 const logout = (req, res) => {
   try {
-    req.session.destroy();
+    req.session.user_id = null;
     res.redirect("/");
   } catch (error) {}
 };
