@@ -145,7 +145,9 @@ app.use(express.static(path.join(__dirname, "public/admin")));
 //data base connection setting
 mongoose.set("strictQuery", true);
 
-mongoose.connect("mongodb://127.0.0.1:27017/upStyle", () => {
+console.log('hai')
+
+mongoose.connect( process.env.MONGODB_CONNECT,() => {
   console.log("DB connection established");
 });
 
