@@ -108,8 +108,7 @@
                               class="form-check-input"
                               type="radio"
                               value={{_id}}
-                              id="defaultRadio1"
-                            />
+                              id="defaultRadio1" checked/>
                             
                             <label class="form-check-label" for="defaultRadio1">{{name}}</label>
                             <label class="form-check-label" for="defaultRadio1">{{address}}</label>
@@ -179,6 +178,17 @@
             </div>
           </div>
 
+          <div class="flex-w flex-m m-r-20 m-tb-5">
+                <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" id="coupon" name="coupon"
+                  placeholder="Coupon Code">
+                  <input type="hidden" name="subTotal" id="subTotal" value="{{totalPrice}}">
+
+                <button onclick="apply()" class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5"
+                  type="button">
+                  Apply coupon
+                </button>
+            </div>
+
           <div class="flex-w flex-t bor12 p-t-15 p-b-30">
             <div class="size-208 w-full-ssm">
               <span class="stext-110 cl2">
@@ -201,7 +211,7 @@
                               class="form-check-input"
                               type="radio"
                               value="card"
-                              id="defaultRadio1"
+                              id="defaultRadio1" checked
                             />
                             <label class="form-check-label" for="defaultRadio1">Debit/Credit</label>
 
@@ -267,6 +277,31 @@
               </div>
             </div> --}}
           </div>
+        <div>
+          <table>
+                        <tr class="">
+                                                                       
+                                                                    </tr>
+                                                                    <tr class="summary-total">
+                                                                        <td style="padding-bottom: 8px;">Subtotal :</td>
+                                                                        <td style="color: blue;padding-bottom: 8px;">
+                                                                           
+                                                                          <span id="fol">  </span>                                                              
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr class="summary-total">
+                                                                        <td  style="padding-bottom: 8px;">
+                                                                            Discount :
+                                                                        </td>
+                                                                        <td style="color: blue;padding-bottom: 8px;">
+                                                                          <span id="disc">  </span>
+                                                                        </td>
+                                                                    </tr>
+                                    
+                                                                    
+                                                                </table>
+        </div>
 
           <div class="flex-w flex-t p-t-27 p-b-33">
             <div class="size-208">
@@ -276,7 +311,7 @@
             </div>
 
             <div class="size-209 p-t-1">
-              <span class="mtext-110 cl2">
+              <span name="totalPrice" id="tprice" class="mtext-110 cl2">
                 {{totalPrice}}
               </span>
             </div>
@@ -299,3 +334,36 @@
     </div>
   </div>
 </form>
+
+
+<script>
+
+      function apply() {
+            cop = document.getElementById('coupon').value
+            subT = document.getElementById('subTotal').value
+            disce = document.getElementById('disc').value
+            console.log(cop,subT)
+            $.ajax({
+               url: '/addCoupen',
+                type: 'POST',
+                data: { coupon: cop,totalValue : subT },
+                success: function (data) {
+                  console.log('ashn',data)
+                   if(data.state==1){
+                    gTotal = subT-data.disc;
+                   document.getElementById('tprice').innerHTML = gTotal
+                   console.log(gTotal)
+                   }else{
+                    document.getElementById('err').innerHTML='*invalid coupon'
+                    console.log(data.message)
+                   }
+                 
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            })
+
+        }
+
+</script>

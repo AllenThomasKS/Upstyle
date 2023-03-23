@@ -38,13 +38,25 @@ route.get("/dashboard", adminAuth.isLogout, adminController.loadDashboard);
 
 route.get("/logout", adminAuth.logout);
 
-route.get("/editProduct", adminController.loadEditProduct);
+route.get("/editProduct", adminAuth.isLogout, adminController.loadEditProduct);
 
 route.get("/block", adminController.blockUser);
 
-route.get("/stock", adminController.inStock);
+route.get("/stock", adminAuth.isLogout, adminController.inStock);
 
-route.get('/category',adminController.loadCategory)
+route.get('/category', adminAuth.isLogout,adminController.loadCategory)
+
+route.get('/loadBanner', adminAuth.isLogout,adminController.loadBanner)
+
+route.get('/activeBanner',adminController.activeBanner)
+
+route.get('/deleteBanner',adminController.deleteBanner)
+
+route.get('/rest',adminController.activeB)
+
+route.get('/active',adminController.activeB)
+
+route.get('/loadOffer',adminController.loadOffer)
 
 //order management
 
@@ -58,7 +70,7 @@ route.get('/deliOrder',adminAuth.isLogout, adminController.deliveredOrder)
 
 route.get('/returnOrder',adminAuth.isLogout, adminController.returnOrder)
 
-route.get('/viewOrder',adminAuth.isLogout, adminController.viewOrder)
+route.get('/viewOrder', adminController.viewOrder)
 
 route.get('/sales',adminAuth.isLogout,adminController.salesReport)
 
@@ -67,6 +79,9 @@ route.get('/sales',adminAuth.isLogout,adminController.salesReport)
 route.get('/category',adminController.loadCategory)
 
 route.get('/deleteCategory',adminController.deleteCategory)
+route.get('/offerStore',adminController.loadOffer)
+
+route.get('/deleteOffer',adminController.deleteOffer)
 
   
 //post methods
@@ -83,5 +98,12 @@ route.post(
 route.post("/update",multer.upload.array('images'), adminController.editProduct);
 
 route.post('/addCategory',adminController.addCategory,adminController.loadCategory)
+
+route.post('/addBanner',multer.upload.array("bannerImage"),adminController.addBanner)
+
+route.post('/offerStore',adminController.offerStore)
+
+
+
 
 module.exports = route;

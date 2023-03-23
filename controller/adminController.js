@@ -2,11 +2,13 @@ const userModel = require("../model/userModel");
 const bcrypt = require("bcrypt");
 const productModel = require("../model/productModel");
 const categoryModel = require("../model/categoryModel");
+const bannerModel = require("../model/bannerModel")
 // const upload = require('../util/multer')
 
 const multer = require("multer");
 const path = require("path");
 const orderModel = require("../model/orderModel");
+const couponModel = require("../model/couponModel")
 
 // const Storage = multer.diskStorage({
 //   destination: function (req, file, cb) {
@@ -81,7 +83,7 @@ const orderCounts = Object.values(orderCountsByDate);
 }}
 
   const showCount = await orderModel.find().count()
-  console.log(showCount);
+  // console.log(showCount);
   const productCount = await productModel.count()
   const usersCount = await userModel.count()
   const totalCategory = await categoryModel.count({isAvailable:1})
@@ -90,6 +92,7 @@ const orderCounts = Object.values(orderCountsByDate);
 // console.log(orderCount);
 
 
+// console.log(orderCounts);
 
     res.render('dashboard', {
       users: userData,
@@ -113,7 +116,7 @@ const orderCounts = Object.values(orderCountsByDate);
   // console.log(error.message)
   console.log(error.message);
 }
-}
+} 
 
 const loadAddProduct = (req, res) => {
   try {
@@ -367,7 +370,7 @@ const deliveredOrder = async (req,res)=>{
 
 const returnOrder = async(req,res)=>{
    await orderModel.findByIdAndUpdate(
-    {_id:req.query.id},
+    {_id:req.query.Id},
     {$set:{status:"Return"}}
    )
    res.redirect('/admin/order')
@@ -375,10 +378,12 @@ const returnOrder = async(req,res)=>{
 
 const viewOrder = async (req,res)=>{
   const order = await orderModel.findById({_id:req.query.Id})
+  // console.log(order.totalPrice);
   const completeData = await order.populate("products.item.productId");
 
   res.render("orderList",{
   order : completeData.products.item,
+  orders: order,
   session: req.session.user_id})
 }
 
@@ -407,6 +412,119 @@ const salesReport = async (req,res)=>{
   
 }
 
+const loadBanner = async(req,res)=>{
+  try {
+    const bannerData = await bannerModel.find()
+    res.render('banner',{banners:bannerData})
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const addBanner = async(req,res)=>{
+  const newBanner = req.body.banner
+  const files = req.files
+  const banner = new bannerModel({
+    banner: newBanner,
+    bannerImage:files.map((x)=>x.filename)
+  })
+  const bannerData = await banner.save()
+  if(bannerData){
+    res.redirect('/admin/loadBanner')
+  }
+}
+
+const activeBanner = async(req,res)=>{
+  const id = req.query.id
+  await bannerModel.findOneAndUpdate({is_active:1},{$set:{is_active:0}})
+  await bannerModel.findOneAndUpdate({id:id},{$set:{is_active:1}})
+  res.redirect('/admin/loadBanner')
+}
+
+const deleteBanner = async(req,res)=>{
+  try{
+    const id = req.query.id;
+    await bannerModel.deleteOne({_id:id});
+    res.redirect('/admin/loadBanner')
+
+  }
+  catch(error){
+    console.log(error.message);
+    }
+}
+
+
+
+
+const offerStore = async (req, res) => {
+
+  try {
+    
+    const offer =  new couponModel({
+
+      name:req.body.name,
+      type:req.body.type,
+      discount:req.body.discount,
+      minAmount:req.body.minAmount,
+      maxAmount:req.body.maxAmount,
+      expiryDate:req.body.expiryDate
+      
+    })
+    await offer.save().then(()=>{
+      console.log('saved');
+      res.redirect('/admin/offerStore')
+    })
+
+  } catch (error) {
+
+console.log(error.message);
+    
+  }
+
+
+}
+
+const loadOffer = async (req, res) => {
+
+  try {
+    const coupon = await couponModel.find({})
+    
+      res.render('offer',{offer:coupon})
+    
+  } catch (error) {
+    console.log(error);
+  }
+  }
+
+const deleteOffer = async(req,res)=>{
+    try {
+        const id = req.query.id;
+        await couponModel.deleteOne({_id:id});
+        res.redirect('/admin/offerStore')
+    } catch (error) {
+        console.log(error.message);
+    }
+  }
+
+  const activeB = async (req, res) => {
+    try {
+      const bannerId = req.query.id;
+      const banner = await bannerModel.findById(bannerId);
+    
+      // Deactivate other banners
+      await bannerModel.updateMany({ _id: { $ne: bannerId } }, { $set: { is_active: false } });
+      
+      // Activate the clicked banner
+      await bannerModel.findByIdAndUpdate(bannerId, { $set: { is_active: true } });
+  
+      res.redirect('/admin/loadBanner');
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  };
+ 
+
 module.exports = {
   loadDashboard,
   loadProduct,
@@ -429,4 +547,12 @@ module.exports = {
   returnOrder,
   viewOrder,
   salesReport,
+  loadBanner,
+  addBanner,
+  activeBanner,
+  deleteBanner,
+  offerStore,
+  loadOffer,
+  deleteOffer,
+  activeB,
 };

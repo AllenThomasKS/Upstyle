@@ -15,7 +15,9 @@ const isLogin = (req, res, next) => {
 
 const isLogout = async(req, res, next) => {
   try {
-    if (req.session.user_id) {
+   const userdata = await userModel.findById({_id:req.session.user_id})
+
+    if (req.session.user_id && userdata.isAvailable) {
       next();
     } else {
       res.render("userLogin",{login:true,});

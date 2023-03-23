@@ -46,19 +46,19 @@ route.get("/login", userAuth.isLogin, userController.loadLogin);
 
 route.get("/register",userAuth.isLogout, userController.loadRegister);
 
-route.get("/logout", userAuth.logout);
+route.get("/logout", userAuth.isLogout, userAuth.logout);
 
 route.get("/productDetails", userController.loadProductDetails);
  
 route.get("/otp",userController.loadOtp)
 
-route.get('/address',userController.loadAddress)
+route.get('/address', userAuth.isLogout,userController.loadAddress)
  
 route.post('/addToCart',userAuth.isLogout,userController.addToCart)
 
 route.get('/deleteCart',userController.deleteCart)
   
-route.get('/addToWishlist',userController.addToWishlist)
+route.post('/addToWishlist',userController.addToWishlist)
 
 route.get('/wishlist',userAuth.isLogout,userController.loadWishlist)
 
@@ -68,21 +68,28 @@ route.get('/addCartDeleteWishlist',userController.addCartDeleteWishlist)
 
 route.get('/ordersummary',userAuth.isLogout, userController.loadOrderSummary)
 
-route.get('/orderSuccess', userController.loadOrderSuccess)
+route.get('/orderSuccess',userAuth.isLogout, userController.loadOrderSuccess)
+
+route.get('/paymentFailure',userAuth.isLogout,userController.orderFailed)
 
 route.get('/forgetPassword', userController.loadForgetPassword)
 
-route.get('/deleteAddress', userController.deleteAddress)
+route.get('/deleteAddress',userAuth.isLogout, userController.deleteAddress)
 
 route.get('/OrderDetails',userAuth.isLogout, userController.loadOrderDetail)
 
 route.get("/checkout",userAuth.isLogout,userController.loadCheckout)
 
-route.get('/editProfile',userController.loadEditUserProfile)
+route.get('/editProfile', userAuth.isLogout,userController.loadEditUserProfile)
 
 route.get('/userProfile',userAuth.isLogout,userController.loadUserProfile)
 
 route.get('/address',userAuth.isLogout,userController.loadAddress)
+
+route.get('/viewOrder',userAuth.isLogout,userController.viewOrders)
+
+route.get('/returnOrder',userAuth.isLogout,userController.returnOrder)
+
 
 
 
@@ -113,6 +120,11 @@ route.post('/razorpay',userController.payment)
 route.post('/placeOrder',userController.placeOrder)
 
 route.post('/updateCartItem',userController.updateCartItem)
+
+route.post('/addCoupen', userController.addCouponValue)
+
+
+route.post('/products/search', userController.searchProducts)
 
 
 module.exports = route;

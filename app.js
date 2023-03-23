@@ -64,7 +64,8 @@ adminRouter.engine(
     },
     formatNumber:function (num) {
       return num.toLocaleDateString('en-US');
-    }, multi:function(val1,val2){
+    }, 
+    multi:function(val1,val2){
       return val1*val2;
     } 
 
@@ -105,9 +106,23 @@ app.engine(
     },
     formatNumber:function (num) {
       return num.toLocaleDateString('en-US');
-    }, multi:function(val1,val2){
+    },
+     multi:function(val1,val2){
       return val1*val2;
-    }
+    },
+    math:function(lvalue,operator,rvalue,optons){
+      lvalue = parseFloat(lvalue);
+      rvalue = parseFloat(rvalue);
+      return {
+        "+": lvalue + rvalue,
+        "-": lvalue - rvalue,
+        "*": lvalue * rvalue,
+        "/": lvalue / rvalue,
+        "%": lvalue % rvalue
+    }[operator];
+
+
+     }
     }
   })
 );

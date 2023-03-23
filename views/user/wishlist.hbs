@@ -12,6 +12,7 @@
 		</div>
 	</div>
 		
+		{{#if products}}
 
 	<!-- Shoping Cart -->
 	<form class="bg0 p-t-75 p-b-85">
@@ -69,7 +70,15 @@
 			</div>
 		</div>
 	</form>
+{{else}}
+<div style="height: 100vh; margin-left: 550px; margin-top:auto;">
+  <h1>Your Wishlist is Empty</h1>
+  <p>You haven't added any items to your Wishlist yet.</p>
+  <a href="/shop">Continue Shopping</a>
 
+		</div>
+
+{{/if}}
 	<script>
 
 	const input = document.querySelector("#input")

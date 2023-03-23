@@ -57,7 +57,7 @@
                   </g>
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">upStyle</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -75,15 +75,23 @@
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
             </li>
-            <li class="menu-item  ">
+             <li class="menu-item  ">
               <a href="/admin/products" class="menu-link">
               <i class="menu-icon bi bi-box2"></i>
-                <div data-i18n="Analytics">Products</div>
+                <div data-i18n="Analytics">Sales</div>
               </a>
             </li>
-             <li class="menu-item">
+            <li class="menu-item">
+      <a href="/admin/products" class="menu-link">
+        <i class="bi bi-box-seam menu-icon"></i>
+        {{! <i class="menu-icon tf-icons bx bx-home-circle"></i> }}
+        <div data-i18n="Analytics">Products</div>
+      </a>
+    </li>
+             <li class="menu-item ">
       <a href="/admin/category" class="menu-link">
-        <i class="menu-icon bi bi-card-list"></i>
+        <i class="bi bi-collection menu-icon"></i>
+        {{! <i class="menu-icon tf-icons bx bx-home-circle"></i> }}
         <div data-i18n="Analytics">Category</div>
       </a>
     </li>
@@ -93,6 +101,12 @@
                 <div data-i18n="Analytics">Add Products</div>
               </a>
             </li>
+            <li class="menu-item ">
+            <a href="/admin/loadbanner" class="menu-link">
+             <i class="menu-icon tf-icons bx bxl-kubernetes"></i>
+              <div data-i18n="Analytics">Banner</div>
+                </a>
+                    </li>
             <li class="menu-item">
               <a href="/admin/users" class="menu-link">
                 {{!-- <i class="menu-icon tf-icons bx bx-people"></i> --}}
@@ -100,6 +114,12 @@
                 <div data-i18n="Analytics">Users</div>
               </a>
             </li>
+            <li class="menu-item">
+      <a href="/admin/offerStore" class="menu-link">
+        <i class="menu-icon bi bi-card-list"></i>
+        <div data-i18n="Analytics">offerStore</div>
+      </a>
+    </li>
              <li class="menu-item active ">
               <a href="/admin/order" class="menu-link">
                 {{!-- <i class="menu-icon tf-icons bx bx-people"></i> --}}
@@ -153,15 +173,15 @@
               
               <div class="orderSt d-flex justify-content-between">
 
-                 <button style="height: 80px;" class="btn btn-success me-3 mb-4 w-100 "><a style="color: #000000; text-decoration: none;" href="/admin/order">All Orders</a></button>
+                 <button style="height: 80px;" class="btn btn-primary me-3 mb-4 w-100 "><a style="color: #fff; text-decoration: none;" href="/admin/order">All Orders</a></button>
 
-              <button class="btn btn-success me-3 mb-4 w-100"> <a style="color: #000000; text-decoration: none;" href="/admin/order?id=Confirm"> Confirm Orders</a> </button>
+              <button class="btn btn-primary me-3 mb-4 w-100"> <a style="color: #fff; text-decoration: none;" href="/admin/order?id=Confirm"> Confirm Orders</a> </button>
 
-              <button class="btn btn-success me-3 mb-4 w-100"><a style="color: #000000; text-decoration: none;" href="/admin/order?id=Delivered">Delivered</a></button>
+              <button class="btn btn-primary me-3 mb-4 w-100"><a style="color: #fff; text-decoration: none;" href="/admin/order?id=Delivered">Delivered</a></button>
 
-              <button class="btn btn-success me-3 mb-4 w-100"><a style="color: #000000; text-decoration: none;" href="/admin/order?id=Return">Returned</a></button>
+              <button class="btn btn-primary me-3 mb-4 w-100"><a style="color: #fff; text-decoration: none;" href="/admin/order?id=Return">Return</a></button>
 
-              <button class="btn btn-success me-3 mb-4 w-100"><a style="color: #000000; text-decoration: none;" href="/admin/order?id=Cancel">Canceled</a></button>
+              <button class="btn btn-primary me-3 mb-4 w-100"><a style="color: #fff; text-decoration: none;" href="/admin/order?id=Cancel">Canceled</a></button>
 
               </div>
 
@@ -179,7 +199,7 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Date</th>
+                        <th>Time</th>
                         <th>Payment</th>
                         <th>Customer Name</th>
                         <th>Status</th>
@@ -197,10 +217,13 @@
                         {{#if (eq status "Attempted")}}
                         <td><span class="badge bg-label-primary me-1">Attempted</span></td>
                         {{else if (eq status "Confirm")}}
+                        
                           <td><span class="badge bg-label-success me-1">Confirmed</span></td> 
                         {{else if (eq status "Delivered")}}
-                        <td><span class="badge bg-label-danger me-1">Delivered</span></td> {{else if (eq status "Return")}}
-                        <td><span class="badge bg-label-danger me-1">Return</span></td>{{else if (eq status "Build")}}
+                        <td><span class="badge bg-label-danger me-1">Delivered</span></td> 
+                        {{else if (eq status "ReturnRequestReceived")}}
+                        <td><span class="badge bg-label-danger me-1">Return Request on Pending</span></td>
+                        {{else if (eq status "Build")}}
                         <td><span class="badge bg-label-danger me-1">BUild</span></td>
                         {{else}}
                         <td><span class="badge bg-label-danger me-1"></span></td>
@@ -262,7 +285,7 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Date</th>
+                        <th>Time</th>
                         <th>Payment</th>
                         <th>Customer Name</th>
                         <th>Status</th>
@@ -282,36 +305,21 @@
                         {{else if (eq status "Confirm")}}
                           <td><span class="badge bg-label-danger me-1">Confirmed</span></td> 
                         {{else if (eq status "Delivered")}}
-                        <td><span class="badge bg-label-danger me-1">Delivered</span></td> {{else if (eq status "Return")}}
-                        <td><span class="badge bg-label-danger me-1">Return</span></td>{{else if (eq status "Build")}}
+                        <td><span class="badge bg-label-danger me-1">Delivered</span></td>
+                        {{else if (eq status "ReturnRequestReceived")}}
+                        <td><span class="badge bg-label-danger me-1">Return Request on Pending</span></td>
+                        {{else if (eq status "Build")}}
                         <td><span class="badge bg-label-danger me-1">BUild</span></td>
                         {{else}}
                         <td><span class="badge bg-label-danger me-1"></span></td>
 
                         {{/if}}
 
-                        {{!-- {{#eq s}} --}}
-
-                        {{!-- <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
-                        </td> --}}
 
                         {{#if status}}
 
                     <td>
-                        <button class="btn btn-warning"><a style="text-decoration: none; color: #000;" href="/admin/returnOrder?id={{_id}}">Return</a></button>
+                        {{!-- <button class="btn btn-warning"><a style="text-decoration: none; color: #000;" href="/admin/returnOrder?id={{_id}}">Return</a></button> --}}
                     </td>
 
                     {{!-- <td>
@@ -332,10 +340,7 @@
                   </table>
                 </div>
               </div>
-
-               {{else if (eq id "Return")}}
-               Return
-               
+              {{else if (eq id "Return")}}
               <div class="card">
                 <h5 class="card-header">Return</h5>
                 <div class="table-responsive text-nowrap">
@@ -343,7 +348,7 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Date</th>
+                        <th>Time</th>
                         <th>Payment</th>
                         <th>Customer Name</th>
                         <th>Status</th>
@@ -351,15 +356,15 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
                       {{#each order}}
-                      {{#if (eq status "Return")}}
+                      {{#if (eq status "ReturnRequestReceived")}}
                       <tr>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{inc @index}}</strong></td>
                         <td>{{formatNumber createdAt}}</td>
                         <td>{{payment}}</td>
                         <td>{{name}}</td>
 
-                        {{#if (eq status "Attempted")}}
-                        <td><span class="badge bg-label-primary me-1">Attempted</span></td>
+                        {{#if (eq status "ReturnRequestReceived")}}
+                        <td><span class="badge bg-label-primary me-1">Return Request on Pending</span></td>
                         {{else if (eq status "Confirm")}}
                           <td><span class="badge bg-label-danger me-1">Confirmed</span></td> 
                         {{else if (eq status "Delivered")}}
@@ -372,19 +377,46 @@
                         {{/if}}
 
                         {{#if status}}
+                        <td>
+                      <button class="btn btn-warning"><a class="aTag" href="/admin/returnOrder?Id={{_id}}">Return</a></button>
 
-                    {{!-- <td>
-                        <button class="btn btn-danger"><a style="text-decoration: none; color: #000;" href="/admin/cancelOrder?id={{_id}}">Cancel</a></button>
-                    </td>
-
-                    <td>
-                        <button class="btn btn-success"><a style="text-decoration: none; color: #000;" href="/admin/cancelOrder?id={{_id}}">Confirm</a></button>
-                    </td> --}}
-                    {{else}}
-                     <td>
-                         
                     </td>
                     {{/if}}
+                    <td>
+                        <button class="btn btn-primary"><a style="text-decoration: none; color: #000;" href="/admin/viewOrder?Id={{_id}}">View</a></button>
+                    </td>
+                      </tr>
+                      {{else if (eq status "Return" )}}
+                      <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{inc @index}}</strong></td>
+                        <td>{{formatNumber createdAt}}</td>
+                        <td>{{payment}}</td>
+                        <td>{{name}}</td>
+
+                        {{#if (eq status "Return")}}
+                        <td><span class="badge bg-label-warning me-1">Returned</span></td>
+                        {{else if (eq status "Confirm")}}
+                          <td><span class="badge bg-label-danger me-1">Confirmed</span></td> 
+                        {{else if (eq status "Delivered")}}
+                        <td><span class="badge bg-label-danger me-1">Delivered</span></td> {{else if (eq status "Return")}}
+                        <td><span class="badge bg-label-danger me-1">Return</span></td>{{else if (eq status "Build")}}
+                        <td><span class="badge bg-label-danger me-1">BUild</span></td>
+                        {{else}}
+                        <td><span class="badge bg-label-danger me-1"></span></td>
+
+                        {{/if}}
+{{!-- 
+                        {{#if status}}
+                        <td>
+                      <button class="btn btn-warning"><a class="aTag" href="/admin/returnOrder?Id={{_id}}">Return</a></button>
+
+                    </td>
+                    {{else}}
+                     <td>
+                      <button class="btn btn-primary"><a class="aTag" href="/admin/returnOrder?Id={{_id}}">Return</a></button>
+
+                    </td>
+                    {{/if}} --}}
                     <td>
                         <button class="btn btn-primary"><a style="text-decoration: none; color: #000;" href="/admin/viewOrder?Id={{_id}}">View</a></button>
                     </td>
@@ -408,7 +440,7 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Date</th>
+                        <th>Time</th>
                         <th>Payment</th>
                         <th>Customer Name</th>
                         <th>Status</th>
@@ -419,7 +451,7 @@
                       {{#if (eq status "Cancel")}}
                       <tr>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{inc @index}}</strong></td>
-                        <td>{{formatNumber createdAt}}</td>
+                        <td>{{ formatNumber createdAt}}</td>
                         <td>{{payment}}</td>
                         <td>{{name}}</td>
 
@@ -445,7 +477,7 @@
                     </td> --}}
 
                     <td>
-                        <button disabled class="btn btn-secondary"><a style="text-decoration: none; color: #000000;" href="/admin/cancelOrder?id={{_id}}">Canceled</a></button>
+                        <button disabled class="btn btn-secondary"><a style="text-decoration: none; color: #000;" href="/admin/cancelOrder?id={{_id}}">Canceled</a></button>
                     </td> 
                     {{else}}
                      <td>
@@ -472,7 +504,7 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Date</th>
+                        <th>Time</th>
                         <th>Payment</th>
                         <th>Customer Name</th>
                         <th>Status</th>

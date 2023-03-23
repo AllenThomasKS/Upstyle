@@ -76,6 +76,12 @@
               </a>
             </li>
             <li class="menu-item  ">
+              <a href="/admin/sales" class="menu-link">
+              <i class="menu-icon bi bi-box2"></i>
+                <div data-i18n="Analytics">Sales</div>
+              </a>
+            </li>
+            <li class="menu-item  ">
               <a href="/admin/products" class="menu-link">
               <i class="bi bi-box-seam menu-icon "></i>
                 <div data-i18n="Analytics">Products</div>
@@ -97,6 +103,12 @@
                 <div data-i18n="Analytics">Add Products</div>
               </a>
             </li>
+            <li class="menu-item ">
+            <a href="/admin/loadbanner" class="menu-link">
+             <i class="menu-icon tf-icons bx bxl-kubernetes"></i>
+              <div data-i18n="Analytics">Banner</div>
+                </a>
+                    </li>
 
             <li class="menu-item active">
               <a href="/admin/users" class="menu-link">
@@ -105,6 +117,12 @@
                 <div data-i18n="Analytics">Users</div>
               </a>
             </li>
+              <li class="menu-item">
+      <a href="/admin/offerStore" class="menu-link">
+        <i class="menu-icon bi bi-card-list"></i>
+        <div data-i18n="Analytics">offerStore</div>
+      </a>
+    </li>
              <li class="menu-item  ">
               <a href="/admin/order" class="menu-link">
                 {{!-- <i class="menu-icon tf-icons bx bx-people"></i> --}}
@@ -195,16 +213,18 @@
                       {{/if}}
 
                       {{#if isAvailable}}
+
                     <td>
-                        <button class="btn btn-danger" onclick="Blocked()"  style="text-decoration: none; color: #fff;"  >Block...</button>
-                         <a id="block"  style="display:none" href="/admin/block?id={{_id}}">block</a>
+                        <button class="btn btn-danger" onclick="Blocked('{{_id}}')"  style="text-decoration: none; color: #fff;">Block...</button>
+                         <a id="{{_id}}"  style="display:none" href="/admin/block?id={{_id}}">block</a>
                     </td>
                     {{else}}
                      <td>
-                         <button class="btn btn-success" onclick="Blocked()"> unblock</button>
-                        <a id="block"  style="display:none" href="/admin/block?id={{_id}}">unblock</a>
+                         <button class="btn btn-success" onclick="Blocked('{{_id}}')"> unblock</button>
+                        <a id='{{_id}}'  style="display:none" href="/admin/block?id={{_id}}">unblock</a>
                     </td>
                     {{/if}}
+
                       </tr>
                       {{/each}}
                     </tbody>
@@ -231,7 +251,7 @@
         });
 
 
-	function Blocked(){
+	function Blocked(p){
 	Swal.fire({
   title: 'Are you sure?',
   text: "You won't be able to revert this!",
@@ -242,7 +262,7 @@
   confirmButtonText: 'Yes!'
 }).then((result) => {
   if (result.isConfirmed) {
-    document.getElementById('block').click()
+    document.getElementById(p).click()
     Swal.fire(
       'process completed!',
       '',
@@ -254,4 +274,5 @@
 
 
 </script>
+
       
