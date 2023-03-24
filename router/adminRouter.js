@@ -83,6 +83,16 @@ route.get('/offerStore',adminController.loadOffer)
 
 route.get('/deleteOffer',adminController.deleteOffer)
 
+//reports
+
+route.get('/stockReport',adminController.stockReport)
+
+// route.get('/salesReport',adminController.salesReport)
+
+route.get('/loadfullSales',adminController.loadfullSales)
+
+route.get('/download',adminController.adminDownload)
+
   
 //post methods
 

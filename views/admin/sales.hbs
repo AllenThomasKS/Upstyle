@@ -166,73 +166,94 @@
         </aside>
 
           <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
-
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Products</h4>
-
-<div class="d-flex">
-   <button id="downloadPdfBtn" class="btn btn-primary d-flex mb-3 ms-3"> <i class="bi bi-filetype-pdf me-2"></i>Download Stock Report pdf</button>
-              <button id="downloadExcelBtn" class="btn btn-primary  d-flex mb-3 ms-3"><i class="bi bi-table me-2"></i>Download Stock Report in Excel</button>
-
-</div>
-           
-              <!-- Basic Bootstrap Table -->
-              <div class="card">
-                <h5 class="card-header"></h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table" id="ordersTable">
-                    <thead>
-                      <tr>
-                        <th>Sl No</th>
-                        <th>Product Name</th>
-                        <th>Image</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th>Total Sale</th>
-                        <th class="ms-1">Total order </th>
-                        
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      {{#each sale}}
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{inc @index}}</strong></td>
-                        <td>{{product.name}}</td>
-                        <td>
-                          {{#limit product.image 1}}
-                            <img src="../assets/img/products/{{this}}  " alt="Avatar" class="rounded-circle" style="width: 50px; height: 50px;" />
-                          {{/limit}}
-                        </td>
-
-                        <td>{{product.price}}</td>
-
-                        <td>{{product.category}}</td>
-                        <td>
-                          {{count}}
-                        </td>
-                        <td>{{multi count product.price}}</td>
-
-                      </tr>
-                      {{/each}}
-                    </tbody>
-                  </table>
-                  <script>
-
-                  </script>
-
-                </div>
-              </div>
-              <!--/ Basic Bootstrap Table -->
-
-            <div class="content-backdrop fade"></div>
-          </div>
-          <!-- Content wrapper -->
+          <div class="container mt-3" style="padding-top: 0vh; z-index: 3  ;">
+    <h3 style="margin-left: 40%;padding-bottom: 10px; ">SALES REPORT   <a href="/admin/download" class="pb-2 btn btn-primary" >Download</a></h3>
+    
+      <a href="/admin/dashboard" class="pb-1 btn btn-primary"   type="">Go Back</a>
+    
+    <form action="/admin/datewiseReport" method="post"> 
+<div class="row" style="padding-bottom: 40px; padding-top: 40px;" id="sales-div">
+    
+    <div class="col-md-3">
+    <input type="date" class="form-control" value="" name="Startingdate" style="width: 300px;">
+    <span class="text-primary">Enter the Starting date</span>
+    </div>
+    <div class="col-md-3">
+        <input type="date" class="form-control" value="" name="Endingdate" style="width: 300px;">
+        <span class="text-primary">Enter the Ending date</span>
         </div>
-        <!-- / Layout page -->
+        <div class="col-md-3">
+            <button type="submit" id="date-donfirm"
+              class=" btn btn-success ">
+              <span>Confirm Date</span>
+          </a>
+          </div>
+          </div>
+         </form> 
+
+        <div class="col-md-4">
+       
+      </a> 
+
       </div>
+    
+
+   <br>
+  <table id="myTab" class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+        <tr>
+          <th>Product</th>
+          <th>Category</th>
+          <th>Quantity Sold</th>
+          <th>Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each products}}
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+            {{#limit image 1}}
+              
+              <img   src="../assets/img/products/{{this}}" alt="IMG-PRODUCT"
+                    style="width: 45px; height: 45px"
+                  class="rounded-circle"
+                  />
+
+            {{/limit}}
+              <div class="ms-3">
+                <p class="fw-bold mb-1 ml-3"> {{name}}</p>
+                <p class="text-muted mb-0 ml-3">Price: ₹{{price}}</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <p class="fw-normal mb-1">{{category}}</p>
+              </td>
+
+        
+          <td>
+              <div>
+                  <p class="text-muted mb-0 ml-3">{{sales}}</p>
+              </div>
+          </td>
+          <td>
+              <p id="multiply" class="text-muted mb-0 ml-3">₹ {{math price "*" sales}}
+            
+          </td>
+          
+        </tr>
+       
+                {{/each}}
+      </tbody>
+      <footer>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </footer>
+    </table>
+    </div>
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>

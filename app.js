@@ -67,7 +67,20 @@ adminRouter.engine(
     }, 
     multi:function(val1,val2){
       return val1*val2;
-    } 
+    },
+    math:function(lvalue,operator,rvalue,optons){
+      lvalue = parseFloat(lvalue);
+      rvalue = parseFloat(rvalue);
+      return {
+        "+": lvalue + rvalue,
+        "-": lvalue - rvalue,
+        "*": lvalue * rvalue,
+        "/": lvalue / rvalue,
+        "%": lvalue % rvalue
+    }[operator];
+
+
+     } 
 
     }  })
 );
@@ -145,7 +158,6 @@ app.use(express.static(path.join(__dirname, "public/admin")));
 //data base connection setting
 mongoose.set("strictQuery", true);
 
-console.log('hai')
 
 mongoose.connect( process.env.MONGODB_CONNECT,() => {
   console.log("DB connection established");

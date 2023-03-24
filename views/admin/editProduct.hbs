@@ -57,7 +57,7 @@
                   </g>
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">upStyle</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -69,50 +69,61 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item">
-              <a href="/admin" class="menu-link">
-                <i class="menu-icon -icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
-              </a>
-            </li>
-            <li class="menu-item ">
-              <a href="/admin/products" class="menu-link">
+           <li class="menu-item ">
+      <a href="/admin" class="menu-link">
+        <i class="menu-icon -icons bx bx-home-circle"></i>
+        <div data-i18n="Analytics">Dashboard</div>
+      </a>
+    </li>
+    <li class="menu-item  ">
+              <a href="/admin/sales" class="menu-link">
               <i class="menu-icon bi bi-box2"></i>
-                <div data-i18n="Analytics">Products</div>
+                <div data-i18n="Analytics">Sales</div>
               </a>
             </li>
-            <li class="menu-item">
+   
+    <li class="menu-item">
+      <a href="/admin/products" class="menu-link">
+        <i class="bi bi-box-seam menu-icon"></i>
+        {{! <i class="menu-icon tf-icons bx bx-home-circle"></i> }}
+        <div data-i18n="Analytics">Products</div>
+      </a>
+    </li>
+
+    <li class="menu-item ">
       <a href="/admin/category" class="menu-link">
-        <i class="menu-icon bi bi-card-list"></i>
+        <i class="bi bi-collection menu-icon"></i>
+        {{! <i class="menu-icon tf-icons bx bx-home-circle"></i> }}
         <div data-i18n="Analytics">Category</div>
       </a>
     </li>
-             <li class="menu-item active ">
-              <a href="/admin/addProducts" class="menu-link">
-             <i class=" menu-icon bi bi-plus-square-dotted"></i>
-                <div data-i18n="Analytics">Add Products</div>
-              </a>
-            </li>
-            <li class="menu-item ">
+    <li class="menu-item ">
+      <a href="/admin/addProducts" class="menu-link">
+        <i class="menu-icon bi bi-plus-square-dotted"></i>
+        <div data-i18n="Analytics">Add Products</div>
+      </a>
+    </li>
+     
+    <li class="menu-item ">
             <a href="/admin/loadbanner" class="menu-link">
              <i class="menu-icon tf-icons bx bxl-kubernetes"></i>
               <div data-i18n="Analytics">Banner</div>
                 </a>
                     </li>
-            <li class="menu-item ">
-              <a href="/admin/users" class="menu-link">
-                {{!-- <i class="menu-icon tf-icons bx bx-people"></i> --}}
-                <i class="menu-icon tf-icons bx bi bi-people"></i>
-                <div data-i18n="Analytics">Users</div>
-              </a>
-            </li>
-            <li class="menu-item active">
-      <a href="/admin/offerStore" class="menu-link">
+    <li class="menu-item">
+      <a href="/admin/users" class="menu-link">
+        {{! <i class="menu-icon tf-icons bx bx-people"></i> }}
+        <i class="menu-icon tf-icons bx bi bi-people"></i>
+        <div data-i18n="Analytics">Users</div>
+      </a>
+    </li>
+    <li class="menu-item">
+      <a href="/admin/loadOffer" class="menu-link">
         <i class="menu-icon bi bi-card-list"></i>
         <div data-i18n="Analytics">offerStore</div>
       </a>
     </li>
-             <li class="menu-item ">
+     <li class="menu-item ">
               <a href="/admin/order" class="menu-link">
                 {{!-- <i class="menu-icon tf-icons bx bx-people"></i> --}}
                 <i class="menu-icon tf-icons bx bi bi-people"></i>

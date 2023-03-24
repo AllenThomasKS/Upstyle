@@ -4,6 +4,7 @@ const productModel = require("../model/productModel");
 const categoryModel = require("../model/categoryModel");
 const bannerModel = require("../model/bannerModel")
 // const upload = require('../util/multer')
+const exceljs = require("exceljs")
 
 const multer = require("multer");
 const path = require("path");
@@ -387,29 +388,207 @@ const viewOrder = async (req,res)=>{
   session: req.session.user_id})
 }
 
-const salesReport = async (req,res)=>{
- 
-  
-  const products = await productModel.find({})
+const stockReport = async(req,res)=>{
+  try {
+      const productdata = await productModel.find()
+      res.render('stockReport',{
+          product:productdata,
+          admin:true
+      })
+  } catch (error) {
+      console.log(error.message);  
+  }
+}
 
-  let counts
 
-  counts = await orderModel.aggregate([
-    { $unwind: '$products.item' },
-    { $group: { _id: '$products.item.productId', count: { $sum: 1 } } },
-  ]).then(async (result) => {
-    const counts = [];
-    for (const { _id, count } of result) {
-      const product = await productModel.findById(_id)
-      counts.push({ productId: _id, count, product });
-    }
-    return counts;
-  });
-  
- 
-  
-  res.render("sales", { sale: counts });
-  
+const salesReport = async(req,res)=>{
+  try {
+    console.log("1");
+      const productdata = await productModel.find()
+      console.log(productdata);
+      
+      res.render('sales',{products:productdata})
+
+  } catch (error) {
+      console.log(error.message);
+  }
+}
+
+const monthlysales = async(req,res)=>{
+  try {
+      const month = req.body.month;
+      // const endate = req.body.Endingdate;
+      const startofmonth = new Date(month);
+      const endofmonth = new Date(month);
+      console.log(startofmonth);
+      endofmonth.setMonth(endofmonth.getMonth()+1);
+      const sales = await orderModel.aggregate([
+          {
+            $match: {
+              createdAt: {
+                $gte: startofmonth,
+                $lte: endofmonth,
+              },
+              status: 'Delivered', // Only count completed orders
+            },
+          },
+          {
+            $unwind: '$products.item',
+          },
+          {
+            $group: {
+              _id: {
+                month: { $month: '$createdAt' },
+                year: { $year: '$createdAt' },
+                productId: '$products.item.productId',
+              },
+              quantity: { $sum: '$products.item.qty' },
+              totalSales: { $sum: '$products.item.price' },
+            },
+          },
+          {
+            $lookup: {
+              from: 'products',
+              localField: '_id.productId',
+              foreignField: '_id',
+              as: 'product',
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+              month: '$_id.month',
+              year: '$_id.year',
+              productId: '$_id.productId',
+              name: '$product.name',
+              category: '$product.category',
+              quantity: 1,
+              totalSales: 1,
+            },
+          },
+        ])
+      // console.log(sales);
+      res.render('monthlySales',{sales:sales})
+      
+  } catch (error) {       
+      console.log(error.message);
+  }
+}
+
+
+const datewiseReport = async(req,res)=>{
+  try {
+      const startdate = new Date(req.body.Startingdate)
+      const enddate = new Date(req.body.Endingdate)
+
+      // console.log(startdate);
+
+      // const orders = await Order.find({createdAt:{$gte:startdate}})
+      // console.log(orders);
+      const sales = await orderModel.aggregate([
+          {
+              $match:{
+                  createdAt:{
+                      $gte: startdate,
+                      $lt: enddate
+                  },
+                  status:'Delivered',
+              },
+          },
+          {
+              $unwind:'$products.item',
+          },
+          {
+              $group:{
+                  _id:'$products.item.productId',
+                  totalSales:{ $sum: '$products.item.price'},
+                  quantity:{ $sum: '$products.item.qty'}
+              },
+          },
+          {
+              $lookup:{
+                  from:'products',
+                  localField:'_id',
+                  foreignField:'_id',
+                  as:'product'
+              },
+          },
+          {
+              $unwind:'$product',
+          },
+          {
+              $project:{
+                  _id:0,
+                  name:'$product.name',
+                  category:'$product.category',
+                  price:'$product.price',
+                  quantity:'$quantity',
+                  sales:'$totalSales'
+              },
+          },
+      ])
+      // console.log(sales);
+      res.render('datewisereport',{sales:sales});
+  } catch (error) {
+      console.log(error.message);
+  }
+}
+
+
+
+const loadfullSales = async(req,res)=>{
+  try {
+      res.render('ALLSales')
+  } catch (error) {
+      console.log(error.message)
+  }
+}
+
+
+
+const adminDownload= async(req,res)=>{
+  try {
+      const workbook = new exceljs.Workbook();
+      const worksheet = workbook.addWorksheet("Stockreport")
+
+      worksheet.columns = [
+          { header:"Sl no.",key:"s_no" },
+          { header:"Product",key:"name" },
+          { header:"Category",key:"category" },
+          { header:"Price",key:"price" },
+          { header:"Quantity",key:"quantity" },
+          { header:"Rating",key:"rating" },
+          { header:"Sales",key:"sales" },
+          { header:"isAvailable",key:"isAvailable" },
+      ];
+
+      let counter = 1;
+
+      const productdata = await productModel.find()
+
+      productdata.forEach((product)=>{
+          product.s_no = counter;
+          worksheet.addRow(product)
+          counter++;
+      })
+
+      worksheet.getRow(1).eachCell((cell)=>{
+          cell.font = {bold:true}
+      });
+
+      res.setHeader(
+          "Content-Type",
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      )
+      res.setHeader("Content-Disposition","attachment; filename=products.xlsx")   
+      
+      return workbook.xlsx.write(res).then(()=>{
+          res.status(200)
+      })
+
+  } catch (error) {
+      console.log(error.message);
+  }
 }
 
 const loadBanner = async(req,res)=>{
@@ -547,6 +726,11 @@ module.exports = {
   returnOrder,
   viewOrder,
   salesReport,
+  stockReport,
+  monthlysales,
+  datewiseReport,
+  loadfullSales,
+  adminDownload,
   loadBanner,
   addBanner,
   activeBanner,
