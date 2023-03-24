@@ -99,6 +99,7 @@ loadLogin = (req, res) => {
 
 loadRegister = (req, res) => {
   const login = true;
+  console.log('hai');
   res.render("register", { login });
 };
 

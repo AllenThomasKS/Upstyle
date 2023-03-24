@@ -44,7 +44,7 @@ route.get("/shop", userController.loadShop);
 
 route.get("/login", userAuth.isLogin, userController.loadLogin);
 
-route.get("/register",userAuth.isLogout, userController.loadRegister);
+route.get("/register", userController.loadRegister);
 
 route.get("/logout", userAuth.isLogout, userAuth.logout);
 
