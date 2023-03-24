@@ -876,18 +876,25 @@
 
 <script>
 
-const input = document.querySelector("#input")
-async function addToCart(){
-  await fetch("http://localhost:5000/addToCart",{
-    method :"POST",
-    headers : {
-      "Content-Type":"application/json"
-    },
-    body : JSON.stringify({
-      id : input.value,
-    }),
-  })
-  .catch((err)=>console.log(err.message))
-}
+$(document).ready(function() {
+  $("#addToCart").click(function() {
+    $.ajax({
+      url: "http://localhost:5000/addToCart",
+      type: "POST",
+      data: JSON.stringify({
+        id: $("#input").val()
+      }),
+      dataType: "json",
+      contentType: "application/json",
+      success: function(response) {
+        console.log(response);
+      },
+      error: function(xhr) {
+        console.log(xhr.responseText);
+      }
+    });
+  });
+});
+
 
 </script>
