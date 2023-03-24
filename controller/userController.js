@@ -165,15 +165,15 @@ const verifyLogin = async (req, res, next) => {
           req.session.user_name = userData.name;
           res.redirect("/");
         } else {
-          res.render("login", {
+          res.render("UserLogin", {
             message: "You are Blocked by the administrator",
           });
         }
       } else {
-        res.render("login", { message: "Invalid password" });
+        res.render("UserLogin", { message: "Invalid password" });
       }
     } else {
-      res.render("login", { message: "Account not found" });
+      res.render("UserLogin", { message: "Account not found" });
     }
   } catch (error) {
     console.log(error.message);
@@ -237,10 +237,8 @@ const verifyOtp =async (req, res, next) => {
 //cart management
 
 const addToCart = async (req, res, next) => {
-  try {
-
-    console.log(req.body);
-    const productId = req.body.id;
+  try { 
+    const productId = req.query.id;
     userSession = req.session;
     const userData = await userModel.findById({ _id: userSession.user_id });
     const productData = await productModel.findById({ _id: productId });

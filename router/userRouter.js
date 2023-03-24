@@ -54,7 +54,7 @@ route.get("/otp",userController.loadOtp)
 
 route.get('/address', userAuth.isLogout,userController.loadAddress)
  
-route.post('/addToCart',userAuth.isLogout,userController.addToCart)
+route.get('/addToCart',userAuth.isLogout,userController.addToCart)
 
 route.get('/deleteCart',userController.deleteCart)
   
