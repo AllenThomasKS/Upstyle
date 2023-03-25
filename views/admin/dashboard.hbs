@@ -190,22 +190,22 @@
     <div class="content-wrapper">
       <!-- Content -->
       <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="row">
-          <div class="col-lg-8 mb-4 order-0">
-            <div class="card">
-              <div class="d-flex align-items-end row">
-                <div class="col-sm-7">
-                  <div class="card-body">
-                    <h5 class="card-title text-primary">Welcome {{admin.name}} 🎉</h5>
-                    <p class="mb-4">
+            <div class="row">
+              <div class="col-lg-13 mb-4 order-0">
+                <div class="card">
+                  <div class="d-flex align-items-end row">
+                    <div class="col-sm-7">
+                      <div class="card-body">
+                        <h5 class="card-title text-primary">Welcome {{admin.name}}   🎉</h5>
+                        <p class="mb-4">
+                         
+                        </p>
 
-                    </p>
-
-
-                  </div>
-                </div>
-                <div class="col-sm-5 text-center text-sm-left">
-                  <!-- <div class="card-body pb-0 px-0 px-md-4">
+                        
+                      </div>
+                    </div>
+                    <div class="col-sm-5 text-center text-sm-left">
+                      <div class="card-body pb-0 px-0 px-md-4">
                         <img
                           src="/admin/assets/img/illustrations/man-with-laptop-light.png"
                           height="140"
@@ -213,221 +213,319 @@
                           data-app-dark-img="illustrations/man-with-laptop-dark.png"
                           data-app-light-img="illustrations/man-with-laptop-light.png"
                         />
-                      </div> -->
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 order-1">
-            <div class="row">
-              <div class="col-lg-6 col-md-12 col-6 mb-4">
-
-
-
-              </div>
-              <div class="col-lg-6 col-md-12 col-6 mb-4">
-
-              </div>
-            </div>
-          </div>
-          <!-- Total Revenue -->
-          <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
-            <div class="card">
-
-              <div class="row">
-                <div class="col-md-5">
-                  <div class="card">
-                    <canvas id="myPie"></canvas>
+                      </div>
+                      
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-7">
-                  <div class="card">
-                    <canvas id="myChart"></canvas>
-
-                  </div>
-                </div>
-                <input type="hidden" id="pname" value="{{pdate}}">
-                <input type="hidden" id="pcount" value="{{pcount}}">
-                <input type="hidden" id="ocount" value="{{count}}">
-                <input type="hidden" id="pdate" value="{{pdate}}">
-                <input type="hidden" id="category" value="{{category}}">
-                <input type="hidden" id="count" value="{{count}}">
               </div>
-              
-            </div>
-          </div>
-          <!--/ Total Revenue -->
-
-        </div>
-
-
-        <div class="row">
-          <div class="col-lg-3 col-sm-6">
-            <div class="card">
-              <div class="content">
+              <div class="col-lg-4 col-md-4 order-1">
                 <div class="row">
-                  <div class="col-xs-5">
-                    <div class="icon-big icon-warning text-center">
-                      <i class="ti-user"></i>
-                    </div>
+                  <div class="col-lg- col-md-12 col-6 mb-4">
+
+                    
+                    
                   </div>
-                  <div class="col-xs-7">
-                    <div class="numbers">
-                      <p>Users</p>
-                      {{usersCount}}
-                    </div>
+                  <div class="col-lg-6 col-md-12 col-6 mb-4">
+                   
                   </div>
                 </div>
-                <!-- <div class="footer">
+              </div>
+
+<div class="col-lg-3 col-sm-6">
+                    <div class="card">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <div class="icon-big icon-warning text-center">
+                                        <i class="ti-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-7">
+                                    <div class="numbers">
+                                        <p style="padding-left: 39%;" >Users</p>
+                                         <p    style="padding-left: 5%;"> {{usersCount}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="footer">
                                 <hr />
                                 <div class="stats">
                                     <i class="ti-reload"></i> total users
                                 </div>
                             </div> -->
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="card">
-              <div class="content">
-                <div class="row">
-                  <div class="col-xs-5">
-                    <div class="icon-big icon-success text-center">
-                      <i class="ti-layout-column3"></i>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-xs-7">
-                    <div class="numbers">
-                      <p>Categories</p>
-                      {{totalCategory}}
-                    </div>
-                  </div>
                 </div>
-                <!-- <div class="footer">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <div class="icon-big icon-success text-center">
+                                        <i class="ti-layout-column3"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-7">
+                                    <div class="numbers">
+                                        <p style="padding-left: 35%;" >Categories</p>
+                                 <p    style="padding-left: 5%;"> {{totalCategory}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="footer">
                                 <hr />
                                 <div class="stats">
                                     <i class="ti-calendar"></i> active categories
                                 </div>
                             </div> -->
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="card">
-              <div class="content">
-                <div class="row">
-                  <div class="col-xs-5">
-                    <div class="icon-big icon-danger text-center">
-                      <i class="ti-shopping-cart"></i>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-xs-7">
-                    <div class="numbers">
-                      <p>Total Products</p>
-                      {{productCount}}
-                    </div>
-                  </div>
                 </div>
-                <!-- <div class="footer">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <div class="icon-big icon-danger text-center">
+                                        <i class="ti-shopping-cart"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-7">
+                                    <div class="numbers">
+                                        <p style="padding-left: 30%;"  >Total Products</p>
+                                         <p    style="padding-left: 5%;"> {{productCount}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="footer">
                                 <hr />
                                 <div class="stats">
                                     <i class="ti-timer"></i> whole count
                                 </div>
                             </div> -->
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="card">
-              <div class="content">
-                <div class="row">
-                  <div class="col-xs-5">
-                    <div class="icon-big icon-info text-center">
-                      <i class="ti-gift"></i>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-xs-7">
-                    <div class="numbers">
-                      <p>Total Orders</p>
-                      {{showCount}}
-                    </div>
-                  </div>
                 </div>
-                <!-- <div class="footer">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <div class="icon-big icon-info text-center">
+                                        <i class="ti-gift"></i>
+                                    </div>
+                                </div>
+                                <div class="col-xs-7">
+                                    <div class="numbers">
+                                        <p style="padding-left: 32%;"   >Total Orders</p>
+                                        
+                                    <p    style="padding-left: 5%;"> {{showCount}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="footer">
                                 <hr />
                                 <div class="stats">
                                     <i class="ti-reload"></i> total orders 
                                 </div>
                             </div> -->
+                        </div>
+                    </div>
+                </div> 
+
+              <!-- Total Revenue -->
+              <div class="col-12 col-lg-13 order-2 order-md-3 order-lg-2 mb-4">
+                <div class="card">
+ 
+                     <h6 style=" color :rgb(30, 6, 139); padding-top:3% ;padding-left: 50%; " >X-axis = No of sales.  </h5>     <h5  style=  "padding-left: 70%;"> </h6>    
+                    <h6 style=" color :rgb(30, 6, 139);  ;padding-left: 50%; " >Y-axis = list of products . </h5>     <h5  style=  "padding-left: 70%;"> </h6>    
+        
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="card">
+                                <canvas id="myPie"></canvas>
+                            </div>
+                        
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card">
+                                <canvas id="myChart"></canvas>
+                                
+                            </div>
+                        </div>
+                        <input type="hidden" id="pname" value={{pname}}>
+                        <input type="hidden" id="pcount" value={{pcount}}>
+                        <input type="hidden" id="category" value={{category}}>
+                        <input type="hidden" id="count" value={{count}}>
+                    </div>
+                    
+                  <!-- <div class="row row-bordered g-0">
+                    <div class="col-md-8">
+                      <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
+                      <div id="totalRevenueChart" class="px-2"></div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card-body">
+                        <div class="text-center">
+                          <div class="dropdown">
+                            <button
+                              class="btn btn-sm btn-outline-primary dropdown-toggle"
+                              type="button"
+                              id="growthReportId"
+                              data-bs-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false"
+                            >
+                              2022
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
+                              <a class="dropdown-item" href="javascript:void(0);">2021</a>
+                              <a class="dropdown-item" href="javascript:void(0);">2020</a>
+                              <a class="dropdown-item" href="javascript:void(0);">2019</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="growthChart"></div>
+                      <div class="text-center fw-semibold pt-3 mb-2">62% Company Growth</div>
+
+                      <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
+                        <div class="d-flex">
+                          <div class="me-2">
+                            <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
+                          </div>
+                          <div class="d-flex flex-column">
+                            <small>2022</small>
+                            <h6 class="mb-0">$32.5k</h6>
+                          </div>
+                        </div>
+                        <div class="d-flex">
+                          <div class="me-2">
+                            <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
+                          </div>
+                          <div class="d-flex flex-column">
+                            <small>2021</small>
+                            <h6 class="mb-0">$41.2k</h6>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+              <!--/ Total Revenue -->
+              
+            </div>
+
+            
+            <div class="row">
+                
+            </div>
+           
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            <script>
+                const ctx = document.getElementById('myChart');
+                const name = document.getElementById('pname');
+                const count = document.getElementById('pcount');
+                const pnames = name.value.split(',');
+                const pcounts = count.value.split(',');
+
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: pnames,
+                        datasets: [{
+                            label: 'sales',
+                            data: pcounts,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+
+                const ctx1 = document.getElementById('myPie');
+                const name1 = document.getElementById('category');
+                const count1 = document.getElementById('count');
+                const category = name1.value.split(',');
+                const countPie = count1.value.split(',');
+
+
+                new Chart(ctx1, {
+                    type: 'doughnut',
+                    data: {
+                        labels: category,
+                        datasets: [{
+                            label: 'sales',
+                            data: countPie,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+           
+          </div>
+          <!-- / Content -->
+
+          <!-- Footer -->
+          <footer class="content-footer footer bg-footer-theme">
+            <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+              <div class="mb-2 mb-md-0">
+                ©
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+               
+                <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder"></a>
+              </div>
+              <div>
+                <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+
+                <a
+                  href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+                  target="_blank"
+                  class="footer-link me-4"
+                  >Documentation</a
+                >
+
+                <a
+                  href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+                  target="_blank"
+                  class="footer-link me-4"
+                  >Support</a
+                >
               </div>
             </div>
-          </div>
+          </footer>
+          <!-- / Footer -->
+
+          <div class="content-backdrop fade"></div>
         </div>
-
-
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-        <script>
-          const ctx = document.getElementById('myChart');
-          const name = document.getElementById('pname');
-          const count = document.getElementById('ocount');
-          const date = document.getElementById('pdate');
-          
-          const pnames = name.value.split(',');
-          const pcounts = count.value.split(',');
-          const dates = date.value.split(',');
-          
-          // const newDate = dates.toString().slice(0,23)
-
-
-          new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels:dates ,
-              datasets: [{
-                label: 'sales',
-                data: pcounts,
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                y: {
-                  beginAtZero: true
-                },
-                x: {
-                  title: {
-                    display: true,
-                    text: 'date',
-                    data: dates,
-                  },
-                 
-                }
-              }
-            }
-          });
-
-          const ctx1 = document.getElementById('myPie');
-          const name1 = document.getElementById('category');
-          const count1 = document.getElementById('count');
-          const category = name1.value.split(',');
-          const countPie = count1.value.split(',');
-
-
-          new Chart(ctx1, {
-            type: 'doughnut',
-            data: {
-              labels: category,
-              datasets: [{
-                label: 'sales',
-                data: countPie,
-                borderWidth: 5
-              }]
-            },
-
-          });
-        </script>
-
+        <!-- Content wrapper -->
       </div>
+      <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+  </div>
       <!-- / Content -->
 
