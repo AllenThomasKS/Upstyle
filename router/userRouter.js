@@ -123,6 +123,7 @@ route.post('/updateCartItem',userController.updateCartItem)
 
 route.post('/addCoupen', userController.addCouponValue)
 
+route.get('*',(req,res)=>res.render('404'))
 
 route.post('/products/search', userController.searchProducts)
 

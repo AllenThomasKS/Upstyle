@@ -113,6 +113,11 @@ route.post('/addBanner',multer.upload.array("bannerImage"),adminController.addBa
 
 route.post('/offerStore',adminController.offerStore)
 
+//error page
+
+route.get('*',(req,res)=>res.render('404'))
+
+
 
 
 
