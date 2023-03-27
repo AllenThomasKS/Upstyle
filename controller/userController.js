@@ -6,14 +6,14 @@ const addressModel = require('../model/addressModel')
 const orderModel = require('../model/orderModel')
 const couponModel = require("../model/couponModel")
 const bannerModel = require('../model/bannerModel')
-
+const categoryModel = require("../model/categoryModel")
 require('dotenv').config()
 
 const Razorpay = require('razorpay');
 
 let newUser;
 let order
-
+let jol=0;
 
 //page rendering functions
 
@@ -75,23 +75,45 @@ loadProduct = (req, res) => {
   res.render("products", { login, session });
 };
  
-loadShop = (req, res) => {
+const loadShop = async (req, res) => {
   try {
+    // console.log("hi1");
     const session = req.session.user_id;
     const login = false;
+    const categorydata = await categoryModel.find();
+    const ID = req.query.id;
+    const product = await productModel.find();
+    let Catagory = req.query.catagory;
+    console.log("catagory:" + Catagory);
+    let catagoryFind = await productModel.find({ category: Catagory });
+    console.log("catagoryFind:" + catagoryFind);
 
-    productModel.find({}).exec((err, product) => {
-      if (product) {
-        res.render("shop", { session, product, login });
-      } else {
-        res.render("shop", { session, login });
-      }
-    });  
-  } catch (error) {
-    console.log(error.message);
+    if (Catagory == "all") {
+      findCatagory = product;
+    } else {
+      findCatagory = catagoryFind;
+    }
+
+    if (!Catagory) {
+      res.render("shop", {
+        session,
+        product,
+        login,
+        categorydata: categorydata,
+      });
+    } else {
+      // res.json(findCatagory)
+      res.render("shop", {
+        session,
+        product: findCatagory,
+        login,
+        categorydata: categorydata,
+      });
+    }
+  } catch {
+    console.log(error);
   }
 };
-
 loadLogin = (req, res) => {
   let login = true;
   res.render("userLogin", { login });
@@ -465,7 +487,7 @@ const applyCoupon = async (req, res) => {
           .findById({ _id: userSession.user_id })
           .populate("cart.item.productId");
       
-        let  totalPrice = userData.cart.totalPrice;
+        let  totalPrice = userData.cart.totalPrice -jol;
     
           console.log("address", address);
     
@@ -929,10 +951,13 @@ const addCouponValue = async (req, res) => {
           console.log('offerdata.name');
               await couponModel.updateOne({ name: offerdata.name }, { $push: { usedBy: userdata._id } });
                   console.log('kskdfthg');
+                  fol =totalPrice
                 disc = (offerdata.discount*totalPrice)/100;
                 if(disc>offerdata.maxAmount){disc =offerdata.max}
+                
                 console.log(disc);
-                res.send({ disc,state:1 })
+                jol = fol - disc
+                res.send({ disc,state:1,fol,jol })
             }else{
               message = 'cannot apply'
               res.send({message,state:0 })

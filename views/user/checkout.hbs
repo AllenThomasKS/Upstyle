@@ -342,6 +342,7 @@
             cop = document.getElementById('coupon').value
             subT = document.getElementById('subTotal').value
             disce = document.getElementById('disc').value
+            fole = document.getElementById("fol").value
             console.log(cop,subT)
             $.ajax({
                url: '/addCoupen',
@@ -353,6 +354,9 @@
                     gTotal = subT-data.disc;
                    document.getElementById('tprice').innerHTML = gTotal
                    console.log(gTotal)
+                  document.getElementById('fol').innerHTML =subT
+                  document.getElementById("disc").innerHTML = data.disc
+
                    }else{
                     document.getElementById('err').innerHTML='*invalid coupon'
                     console.log(data.message)

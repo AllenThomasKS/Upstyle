@@ -70,6 +70,10 @@ const orderSchema = new mongoose.Schema({
   status: {
     type: String,
     default: "Confirm"
+  },
+  price:{
+    type : Number,
+    default :0,
   }
   , 
   productReturned: [{

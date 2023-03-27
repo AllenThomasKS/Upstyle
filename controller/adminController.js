@@ -228,6 +228,8 @@ async function verifyLogin(req, res, next) {
 const editProduct = (req, res, next) => {
   try {
     const images = req.body.image
+
+    if(images ==0){
     productModel
       .findByIdAndUpdate(
         { _id: req.body.ID },
@@ -236,7 +238,7 @@ const editProduct = (req, res, next) => {
             name: req.body.name,
             price: req.body.price,
             category: req.body.category,
-            image: images.map((x) => x),
+            //image: images.map((x) => x),
             description: req.body.description,
             // image: req.body.image
           },
@@ -245,7 +247,29 @@ const editProduct = (req, res, next) => {
       .then(() => {
         res.redirect("/admin/products");
       });
-  } catch (error) {
+    }
+    else{
+      productModel
+      .findByIdAndUpdate(
+        { _id: req.body.ID },
+        {
+          $set: {
+            name: req.body.name,
+            price: req.body.price,
+            category: req.body.category,
+            image: images.map((x) => x.filename),
+            description: req.body.description,
+            // image: req.body.image
+          },
+        }
+      )
+      .then(() => {
+        res.redirect("/admin/products");
+      });
+    }
+    }
+  
+   catch (error) {
     console.log(error.message);
   }
 };
